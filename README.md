@@ -31,3 +31,4 @@ Then navigate into project folder and run `npm install`
 - `npm run lint:fix` fix issues that can be fixed ESLint
 - `npm run format` start Prettier check
 - `npm run format:fix` formatting code with Prettier
+- `npm run prepare` prepare Husky after git clone
