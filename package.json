@@ -7,10 +7,10 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "preview": "vite preview",
-    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "lint:fix": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0 --fix",
-    "format": "npx prettier . --check",
-    "format:fix": "npx prettier . --write",
+    "lint": "eslint ./src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "lint:fix": "eslint ./src --ext ts,tsx --report-unused-disable-directives --max-warnings 0 --fix",
+    "format": "npx prettier ./src --check",
+    "format:fix": "npx prettier ./src --write",
     "prepare": "husky"
   },
   "dependencies": {
@@ -39,7 +39,7 @@
     "vite": "^5.3.1"
   },
   "lint-staged": {
-    "src/**/*.{ts,tsx}": "npm run lint",
-    "src/**/*.{ts,tsx,scss}": "npm run format"
+    "*.{ts,tsx}": "npm run lint",
+    "*.{ts,tsx,scss}": "npm run format"
   }
 }
