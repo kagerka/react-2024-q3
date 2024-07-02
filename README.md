@@ -1,5 +1,3 @@
-# react-2024-q3
-
 ## Projects:
 
 ### Task 1. React project setup. Class components. Error boundary
