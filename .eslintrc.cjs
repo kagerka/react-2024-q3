@@ -1,13 +1,29 @@
 module.exports = {
   root: true,
   env: { browser: true, es2020: true },
-  extends: ["eslint:recommended", "plugin:@typescript-eslint/recommended", "plugin:react-hooks/recommended"],
-  ignorePatterns: ["dist", ".eslintrc.cjs", ".husky"],
-  parser: "@typescript-eslint/parser",
-  plugins: ["react-refresh", "react-compiler"],
+  extends: [
+    'eslint:recommended',
+    'airbnb',
+    'airbnb/hooks',
+    'airbnb-typescript',
+    'plugin:@typescript-eslint/recommended-type-checked',
+    'plugin:@typescript-eslint/stylistic-type-checked',
+    'plugin:react/jsx-runtime',
+    'plugin:react-hooks/recommended',
+    'plugin:prettier/recommended',
+  ],
+  parserOptions: {
+    project: ['./tsconfig.app.json', './tsconfig.node.json'],
+  },
+  ignorePatterns: ['dist', '.eslintrc.cjs', '.husky', 'vite.config.ts'],
+  parser: '@typescript-eslint/parser',
+  plugins: ['react-refresh', 'react-compiler', '@typescript-eslint'],
   rules: {
-    "react-refresh/only-export-components": ["warn", { allowConstantExport: true }],
-    "@typescript-eslint/no-explicit-any": "error",
-    "react-compiler/react-compiler": "error",
+    'react-refresh/only-export-components': [
+      'warn',
+      { allowConstantExport: true },
+    ],
+    '@typescript-eslint/no-explicit-any': 'error',
+    'react-compiler/react-compiler': 'error',
   },
 };
