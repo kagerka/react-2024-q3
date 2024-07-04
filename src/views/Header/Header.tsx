@@ -7,7 +7,10 @@ class Header extends PureComponent {
   render() {
     return (
       <div className={style.wrapper}>
-        <Input placeholder="Search..." />
+        <Input
+          placeholder="Search..."
+          value={localStorage.getItem('searchValue') ?? ''}
+        />
         <HeaderTitle name="Class components" />
       </div>
     );

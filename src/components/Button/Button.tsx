@@ -9,7 +9,7 @@ class Button extends PureComponent<IState> {
   render() {
     const { name } = this.props;
     return (
-      <button type="button" className={style.button}>
+      <button type="submit" className={style.button}>
         {name}
       </button>
     );
