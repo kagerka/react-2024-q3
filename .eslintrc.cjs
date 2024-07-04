@@ -15,7 +15,7 @@ module.exports = {
   parserOptions: {
     project: ['./tsconfig.app.json', './tsconfig.node.json'],
   },
-  ignorePatterns: ['dist', '.eslintrc.cjs', '.husky', 'vite.config.ts'],
+  ignorePatterns: ['dist', '.eslintrc.cjs', '.husky'],
   parser: '@typescript-eslint/parser',
   plugins: ['react-refresh', 'react-compiler', '@typescript-eslint'],
   rules: {

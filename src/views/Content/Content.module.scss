@@ -1,0 +1,7 @@
+@import '../../styles/colors.scss';
+
+.wrapper {
+  width: 100%;
+  min-height: calc(100% - 100px);
+  background-color: $white;
+}

@@ -1,0 +1,16 @@
+@import '../../styles/colors.scss';
+
+.wrapper {
+  padding: 20px 80px;
+  background-color: $dark-gray;
+  display: flex;
+  justify-content: space-between;
+}
+
+@media screen and (max-width: 1000px) {
+  .wrapper {
+    flex-direction: column-reverse;
+    padding: 20px 40px;
+    gap: 20px;
+  }
+}
