@@ -1,4 +1,5 @@
 import React from 'react';
+import { Blocks } from 'react-loader-spinner';
 import Card from '../../components/Card/Card';
 import API from '../../services/api';
 import { IAnimal } from '../../utils/interfaces';
@@ -48,31 +49,54 @@ class Content extends React.PureComponent<IProps> {
   render() {
     const { value, animals } = this.state as IProps;
     return (
-      <div className={style.wrapper}>
-        <div className={style.searchWord}>
-          {value ? (
-            <p>You searched word &quot;{value}&quot;</p>
-          ) : (
-            <p>You can search any animal you want</p>
-          )}
+      <>
+        <div className={style.wrapper}>
+          <div className={style.searchWord}>
+            {value ? (
+              <p>You searched word &quot;{value}&quot;</p>
+            ) : (
+              <p>You can search any animal you want</p>
+            )}
+          </div>
+          <div className={style.cardsWrapper}>
+            {animals?.map((animal) => {
+              return (
+                <Card
+                  key={animal.uid}
+                  name={animal.name}
+                  avian={animal.avian}
+                  canine={animal.canine}
+                  earthAnimal={animal.earthAnimal}
+                  earthInsect={animal.earthInsect}
+                  feline={animal.feline}
+                  uid={animal.uid}
+                />
+              );
+            })}
+          </div>
         </div>
-        <div className={style.cardsWrapper}>
-          {animals?.map((animal) => {
-            return (
-              <Card
-                key={animal.uid}
-                name={animal.name}
-                avian={animal.avian}
-                canine={animal.canine}
-                earthAnimal={animal.earthAnimal}
-                earthInsect={animal.earthInsect}
-                feline={animal.feline}
-                uid={animal.uid}
-              />
-            );
-          })}
-        </div>
-      </div>
+        {animals && animals?.length > 0 ? (
+          <Blocks
+            height="80"
+            width="80"
+            color="#4fa94d"
+            ariaLabel="blocks-loading"
+            wrapperStyle={{}}
+            wrapperClass="blocks-wrapper"
+            visible={false}
+          />
+        ) : (
+          <Blocks
+            height="80"
+            width="80"
+            color="#4fa94d"
+            ariaLabel="blocks-loading"
+            wrapperStyle={{}}
+            wrapperClass="blocks-wrapper"
+            visible
+          />
+        )}
+      </>
     );
   }
 }

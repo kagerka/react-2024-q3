@@ -1,4 +1,5 @@
 import { PureComponent } from 'react';
+
 import Content from './views/Content/Content';
 import Header from './views/Header/Header';
 
