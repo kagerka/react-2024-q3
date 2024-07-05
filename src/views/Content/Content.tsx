@@ -1,5 +1,6 @@
 import React from 'react';
 import Card from '../../components/Card/Card';
+import API from '../../services/api';
 import { IAnimal } from '../../utils/interfaces';
 import style from './Content.module.scss';
 
@@ -23,6 +24,15 @@ class Content extends React.PureComponent<IProps> {
 
   componentDidMount() {
     const { value, animals } = this.props;
+    API.getData(value!)
+      .then((res) => {
+        localStorage.setItem('searchResult', JSON.stringify(res.animals));
+        this.setState({ value, animals: res.animals });
+        window.dispatchEvent(new Event('storage'));
+      })
+      .catch(() => {
+        return 'Error with search response';
+      });
     localStorage.setItem('contentProps', JSON.stringify({ value, animals }));
 
     window.addEventListener('storage', () => {
