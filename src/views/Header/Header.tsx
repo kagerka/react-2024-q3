@@ -1,6 +1,5 @@
 import { PureComponent } from 'react';
-import HeaderTitle from '../../components/HeaderTitle/HeaderTitle';
-import Input from '../../components/Input/Input';
+import Input from '../../components/Input/Search';
 import style from './Header.module.scss';
 
 class Header extends PureComponent {
@@ -11,7 +10,6 @@ class Header extends PureComponent {
           placeholder="Search..."
           value={localStorage.getItem('searchValue') ?? ''}
         />
-        <HeaderTitle name="Class components" />
       </div>
     );
   }

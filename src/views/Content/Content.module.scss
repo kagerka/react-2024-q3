@@ -1,6 +1,30 @@
 @import '../../styles/colors.scss';
 
 .wrapper {
-  width: 100%;
   background-color: $white;
+  padding: 40px 80px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  gap: 30px;
+  justify-content: center;
+}
+.searchWord {
+  font-family: Roboto, serif;
+  font-size: 24px;
+  font-weight: 300;
+  color: $gray;
+}
+.cardsWrapper {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 30px;
+  justify-content: center;
+}
+
+@media screen and (max-width: 1000px) {
+  .wrapper {
+    padding: 20px 40px;
+  }
 }

@@ -1,6 +1,7 @@
-import { PureComponent } from 'react';
+import React, { PureComponent } from 'react';
+import API from '../../services/api';
 import Button from '../Button/Button';
-import style from './Input.module.scss';
+import style from './Search.module.scss';
 
 export interface IProps {
   placeholder: string;
@@ -29,6 +30,16 @@ class Input extends PureComponent<IProps> {
     e.preventDefault();
     const { value } = this.state as IProps;
     if (value) localStorage.setItem('searchValue', value);
+
+    API.getData(value)
+      .then((res) => {
+        localStorage.setItem('searchResult', JSON.stringify(res.animals));
+        this.setState({ value });
+        window.dispatchEvent(new Event('storage'));
+      })
+      .catch(() => {
+        return 'Error with search response';
+      });
   };
 
   render() {
