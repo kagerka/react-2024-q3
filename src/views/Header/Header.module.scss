@@ -4,12 +4,27 @@
   padding: 20px 80px;
   background-color: $dark-gray;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
+}
+
+.errorButton {
+  color: $white;
+  background-color: $red;
+
+  &:hover {
+    background-color: $light-red;
+  }
+
+  &:active {
+    color: $gray;
+    background-color: $white;
+  }
 }
 
 @media screen and (max-width: 1000px) {
   .wrapper {
-    flex-direction: column-reverse;
+    flex-direction: column;
+    align-items: center;
     padding: 20px 40px;
     gap: 20px;
   }

@@ -1,19 +1,10 @@
 @import '../../styles/colors.scss';
 
 .button {
-  border: 1px solid transparent;
-  border-radius: 4px;
-  padding: 4px 20px;
-  font-size: 24px;
-  font-family: Roboto, serif;
-  font-weight: 300;
   color: $gray;
   background-color: $light-gray;
-  transition: all 0.5s;
-  cursor: pointer;
 
   &:hover {
-    outline: none;
     background-color: $dark-white;
   }
 

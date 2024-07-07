@@ -26,5 +26,6 @@ module.exports = {
     '@typescript-eslint/no-explicit-any': 'error',
     'react-compiler/react-compiler': 'error',
     'react/static-property-placement': ['error', 'static public field'],
+    'no-console': ['error', { allow: ['warn', 'error'] }],
   },
 };

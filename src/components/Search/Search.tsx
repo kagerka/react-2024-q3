@@ -8,7 +8,7 @@ export interface IProps {
   value: string;
 }
 
-class Input extends PureComponent<IProps> {
+class Search extends PureComponent<IProps> {
   constructor(props: IProps) {
     super(props);
 
@@ -29,11 +29,15 @@ class Input extends PureComponent<IProps> {
   handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const { value } = this.state as IProps;
-    if (value) localStorage.setItem('searchValue', value);
+
+    if (value || value === '') {
+      localStorage.setItem('searchValue', value);
+    }
 
     API.getData(value)
       .then((res) => {
         localStorage.setItem('searchResult', JSON.stringify(res.animals));
+
         this.setState({ value });
         window.dispatchEvent(new Event('storage'));
       })
@@ -61,4 +65,4 @@ class Input extends PureComponent<IProps> {
   }
 }
 
-export default Input;
+export default Search;

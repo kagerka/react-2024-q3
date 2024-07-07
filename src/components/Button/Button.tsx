@@ -3,13 +3,17 @@ import style from './Button.module.scss';
 
 interface IState {
   name: string;
+  className?: string;
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
 }
 
 class Button extends PureComponent<IState> {
+  static defaultProps = { className: style.button, onClick: () => {} };
+
   render() {
-    const { name } = this.props;
+    const { name, className, onClick } = this.props;
     return (
-      <button type="submit" className={style.button}>
+      <button type="submit" className={className} onClick={onClick}>
         {name}
       </button>
     );

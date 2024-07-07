@@ -1,4 +1,4 @@
-import React from 'react';
+import { PureComponent } from 'react';
 import { Blocks } from 'react-loader-spinner';
 import Card from '../../components/Card/Card';
 import API from '../../services/api';
@@ -10,7 +10,7 @@ export interface IProps {
   animals?: IAnimal[];
 }
 
-class Content extends React.PureComponent<IProps> {
+class Content extends PureComponent<IProps> {
   static defaultProps = { value: '', animals: [] };
 
   constructor(props: IProps) {
@@ -24,8 +24,10 @@ class Content extends React.PureComponent<IProps> {
   }
 
   componentDidMount() {
+    const searchValue = localStorage.getItem('searchValue');
     const { value, animals } = this.props;
-    API.getData(value!)
+
+    API.getData(searchValue && value === '' ? searchValue : value!)
       .then((res) => {
         localStorage.setItem('searchResult', JSON.stringify(res.animals));
         this.setState({ value, animals: res.animals });
@@ -52,7 +54,7 @@ class Content extends React.PureComponent<IProps> {
       <>
         <div className={style.wrapper}>
           <div className={style.searchWord}>
-            {value ? (
+            {value && value !== '' ? (
               <p>You searched word &quot;{value}&quot;</p>
             ) : (
               <p>You can search any animal you want</p>
