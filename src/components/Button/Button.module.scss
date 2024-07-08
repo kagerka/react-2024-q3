@@ -1,0 +1,14 @@
+@import '../../styles/colors.scss';
+
+.button {
+  color: $gray;
+  background-color: $light-gray;
+
+  &:hover {
+    background-color: $dark-white;
+  }
+
+  &:active {
+    background-color: $white;
+  }
+}

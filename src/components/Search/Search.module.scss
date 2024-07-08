@@ -1,0 +1,46 @@
+@import '../../styles/colors.scss';
+
+.form {
+  display: flex;
+  gap: 20px;
+}
+
+.input {
+  width: 280px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  padding: 4px 4px 4px 60px;
+  font-family: Roboto, serif;
+  font-size: 24px;
+  font-weight: 300;
+  color: $gray;
+  background-repeat: no-repeat;
+  background-position: 10px;
+  background-size: 26px;
+  background-color: $dark-white;
+  background-image: url(./../../assets/loupe.svg);
+  transition: all 0.5s;
+
+  &::placeholder {
+    color: $medium-gray;
+    font-weight: 100;
+  }
+
+  &:focus {
+    outline: none;
+    background-color: $white;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .form {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .input {
+    width: 100%;
+  }
+}
