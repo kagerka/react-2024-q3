@@ -1,46 +1,27 @@
-import { PureComponent } from 'react';
-import Button from '../../components/Button/Button';
+import { useState } from 'react';
 import Search from '../../components/Search/Search';
 import style from './Header.module.scss';
 
 export interface IProps {
-  hasError?: boolean;
+  onSubmit: (value: string) => void;
 }
-class Header extends PureComponent {
-  constructor(props: IProps) {
-    super(props);
-    this.state = {
-      hasError: false,
-    };
-  }
 
-  handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    this.setState({
-      hasError: true,
-    });
+function Header(props: IProps) {
+  const { onSubmit } = props;
+  const [searchValue, setSearchValue] = useState('');
+  const handleSubmit = (value: string) => {
+    setSearchValue(value);
   };
-
-  render() {
-    const { hasError } = this.state as IProps;
-    if (hasError) {
-      throw new Error('Error after button click');
-    }
-    return (
-      <div className={style.wrapper}>
-        <Search
-          placeholder="Search..."
-          value={localStorage.getItem('searchValue') ?? ''}
-        />
-
-        <Button
-          onClick={this.handleSubmit}
-          name="Show Error"
-          className={style.errorButton}
-        />
-      </div>
-    );
-  }
+  onSubmit(searchValue);
+  return (
+    <div className={style.wrapper}>
+      <Search
+        placeholder="Search..."
+        searchValue={localStorage.getItem('searchValue') ?? ''}
+        onSubmit={handleSubmit}
+      />
+    </div>
+  );
 }
 
 export default Header;

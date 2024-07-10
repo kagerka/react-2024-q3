@@ -27,5 +27,12 @@ module.exports = {
     'react-compiler/react-compiler': 'error',
     'react/static-property-placement': ['error', 'static public field'],
     'no-console': ['error', { allow: ['warn', 'error'] }],
+    'react/require-default-props': [
+      'error',
+      {
+        classes: 'defaultProps',
+        functions: 'defaultArguments',
+      },
+    ],
   },
 };

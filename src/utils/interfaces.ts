@@ -11,7 +11,7 @@ export interface IAnimalResponse {
   sort: {
     clauses: [[]];
   };
-  animals: [IAnimal[]];
+  animals: IAnimal[];
 }
 export interface IAnimal {
   avian: boolean;

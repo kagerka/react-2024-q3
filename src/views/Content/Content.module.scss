@@ -9,12 +9,14 @@
   gap: 30px;
   justify-content: center;
 }
+
 .searchWord {
   font-family: Roboto, serif;
   font-size: 24px;
   font-weight: 300;
   color: $gray;
 }
+
 .cardsWrapper {
   display: flex;
   flex-direction: row;
@@ -23,6 +25,19 @@
   justify-content: center;
 }
 
+.loaderWrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.notFound {
+  font-family: Roboto, serif;
+  font-size: 24px;
+  font-weight: 400;
+  color: $light-red;
+  border: 2px dashed $light-red;
+  padding: 20px;
+}
 @media screen and (max-width: 1000px) {
   .wrapper {
     padding: 20px 40px;
