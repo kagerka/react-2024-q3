@@ -13,7 +13,7 @@ function Content({ searchValue, searchResult, isSearching }: IProps) {
   return (
     <div className={style.wrapper}>
       <div className={style.searchWord}>
-        {searchValue && searchValue !== '' ? (
+        {searchValue ? (
           <p>You searched word &quot;{searchValue}&quot;</p>
         ) : (
           <p>You can search any animal you want</p>
@@ -37,18 +37,7 @@ function Content({ searchValue, searchResult, isSearching }: IProps) {
             <p className={style.notFound}>Nothing was found</p>
           ) : (
             searchResult?.map((animal: IAnimal) => {
-              return (
-                <Card
-                  key={animal.uid}
-                  name={animal.name}
-                  avian={animal.avian}
-                  canine={animal.canine}
-                  earthAnimal={animal.earthAnimal}
-                  earthInsect={animal.earthInsect}
-                  feline={animal.feline}
-                  uid={animal.uid}
-                />
-              );
+              return <Card key={animal.uid} animal={animal} />;
             })
           )}
         </div>

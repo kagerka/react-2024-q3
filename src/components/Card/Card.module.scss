@@ -8,12 +8,25 @@
   background: $dark-white;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: top;
   box-sizing: border-box;
+  align-items: center;
   padding: 10px;
 }
 
 .title {
   font-weight: 500;
   color: $dark-gray;
+}
+
+.image {
+  max-width: 80px;
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+
+  & img {
+    width: 80px;
+  }
 }
