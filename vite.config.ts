@@ -1,3 +1,4 @@
+/// <reference types="vitest" />
 import react from '@vitejs/plugin-react';
 import { defineConfig } from 'vite';
 
@@ -8,5 +9,9 @@ export default defineConfig({
     modules: {
       generateScopedName: `[folder]__[local]__[hash:base64:5]`,
     },
+  },
+  test: {
+    environment: 'jsdom',
+    globals: true,
   },
 });
