@@ -1,0 +1,24 @@
+@import '../../styles/colors.scss';
+
+.wrapper {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.pageNumber {
+  border: 1px solid $gray;
+  background: $white;
+
+  &:hover {
+    background: $blue;
+    border-color: $blue;
+    color: $white;
+  }
+
+  &:active {
+    background: $dark-blue;
+    border-color: $dark-blue;
+    color: $white;
+  }
+}

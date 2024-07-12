@@ -1,8 +1,11 @@
 import { IAnimalResponse } from '../utils/interfaces';
 
-const getData = async (value: string): Promise<IAnimalResponse> => {
+const getData = async (
+  value: string,
+  page: { number: number; size: number },
+): Promise<IAnimalResponse> => {
   const response = await fetch(
-    `https://stapi.co/api/v1/rest/animal/search??pageNumber=1&name=${value}`,
+    `https://stapi.co/api/v1/rest/animal/search?pageNumber=${page.number}&pageSize=${page.size}&name=${value}`,
     {
       method: 'POST',
       headers: {
@@ -11,6 +14,7 @@ const getData = async (value: string): Promise<IAnimalResponse> => {
       },
     },
   );
+
   if (!response.ok) {
     throw new Error(`HTTP error! status: ${response.status}`);
   } else {

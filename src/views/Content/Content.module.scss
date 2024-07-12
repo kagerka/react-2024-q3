@@ -2,7 +2,7 @@
 
 .wrapper {
   background-color: $white;
-  padding: 40px 80px;
+  padding: 20px 80px;
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
@@ -15,6 +15,10 @@
   font-size: 24px;
   font-weight: 300;
   color: $gray;
+
+  & p {
+    margin: 10px 0 0;
+  }
 }
 
 .cardsWrapper {
@@ -25,6 +29,11 @@
   justify-content: center;
 }
 
+.cardsPaginationWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
 .loaderWrapper {
   display: flex;
   justify-content: center;

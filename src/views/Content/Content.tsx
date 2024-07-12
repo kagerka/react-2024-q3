@@ -1,15 +1,24 @@
 import { Blocks } from 'react-loader-spinner';
 import Card from '../../components/Card/Card';
+import Pagination from '../../components/Pagination/Pagination';
 import { IAnimal } from '../../utils/interfaces';
 import style from './Content.module.scss';
 
 export interface IProps {
   searchValue: string;
   searchResult: IAnimal[];
+  totalPages: number;
   isSearching: boolean;
+  onClick: (value: number) => void;
 }
 
-function Content({ searchValue, searchResult, isSearching }: IProps) {
+function Content({
+  searchValue,
+  searchResult,
+  totalPages,
+  isSearching,
+  onClick,
+}: IProps) {
   return (
     <div className={style.wrapper}>
       <div className={style.searchWord}>
@@ -32,14 +41,19 @@ function Content({ searchValue, searchResult, isSearching }: IProps) {
           />
         </div>
       ) : (
-        <div className={style.cardsWrapper}>
-          {searchResult.length === 0 ? (
-            <p className={style.notFound}>Nothing was found</p>
-          ) : (
-            searchResult?.map((animal: IAnimal) => {
-              return <Card key={animal.uid} animal={animal} />;
-            })
-          )}
+        <div className={style.cardsPaginationWrapper}>
+          <div className={style.cardsWrapper}>
+            {searchResult.length === 0 ? (
+              <p className={style.notFound}>Nothing was found</p>
+            ) : (
+              searchResult?.map((animal: IAnimal) => {
+                return <Card key={animal.uid} animal={animal} />;
+              })
+            )}
+          </div>
+          {searchResult.length !== 0 ? (
+            <Pagination totalPages={totalPages} onClick={onClick} />
+          ) : null}
         </div>
       )}
     </div>

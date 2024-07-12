@@ -12,7 +12,7 @@ function Button({
   onClick = () => {},
 }: IState) {
   return (
-    <button type="submit" className={className} onClick={() => onClick}>
+    <button type="submit" className={className} onClick={onClick}>
       {name}
     </button>
   );
