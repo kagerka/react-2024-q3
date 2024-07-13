@@ -11,16 +11,10 @@ export interface IProps {
 function Search(props: IProps) {
   const { placeholder, searchValue, onSubmit } = props;
   const [valueState, setValueState] = useState(searchValue);
-  // const [searchParams, setSearchParams] = useSearchParams();
-  // const [searchQuery, setSearchQuery] = useState(
-  //   searchParams.get('name') ?? '',
-  // );
-  // const navigate = useNavigate();
 
   const handleChange = (e: React.FormEvent) => {
     const { value } = e.target as HTMLInputElement;
     setValueState(value);
-    // setSearchQuery(value);
   };
 
   const handleSubmit = (e: React.FormEvent) => {
