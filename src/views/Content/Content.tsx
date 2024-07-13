@@ -4,19 +4,19 @@ import Pagination from '../../components/Pagination/Pagination';
 import { IAnimal } from '../../utils/interfaces';
 import style from './Content.module.scss';
 
-export interface IProps {
+interface IProps {
   searchValue: string;
   searchResult: IAnimal[];
-  totalPages: number;
   isSearching: boolean;
+  totalPages: number;
   onClick: (value: number) => void;
 }
 
 function Content({
   searchValue,
   searchResult,
-  totalPages,
   isSearching,
+  totalPages,
   onClick,
 }: IProps) {
   return (

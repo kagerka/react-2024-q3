@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Button from '../Button/Button';
 import style from './Search.module.scss';
 
-export interface IProps {
+interface IProps {
   placeholder: string;
   searchValue: string;
   onSubmit: (value: string) => void;

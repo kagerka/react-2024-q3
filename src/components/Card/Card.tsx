@@ -25,7 +25,6 @@ function Card(props: ICardInfo) {
         {!feline && !earthInsect && !earthAnimal && !canine && !avian ? (
           <img src={unknownImg} alt={name} />
         ) : null}
-        {/* <img src="" alt="" /> */}
       </div>
       <h2 className={style.title}>{name}</h2>
       <div>

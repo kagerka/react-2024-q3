@@ -19,6 +19,8 @@ describe('Content', () => {
         searchValue="bird"
         searchResult={[animal]}
         isSearching={false}
+        totalPages={5}
+        onClick={() => {}}
       />,
     );
     expect(screen.getByText('You searched word "bird"')).toBeDefined();

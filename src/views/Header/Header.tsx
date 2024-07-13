@@ -1,7 +1,7 @@
 import Search from '../../components/Search/Search';
 import style from './Header.module.scss';
 
-export interface IProps {
+interface IProps {
   onSubmit: (value: string) => void;
   searchValue: string;
 }

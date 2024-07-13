@@ -64,8 +64,8 @@ function Home() {
       <Content
         searchValue={searchValue}
         searchResult={searchResult}
-        totalPages={totalPages}
         isSearching={isSearching}
+        totalPages={totalPages}
         onClick={handleClick}
       />
     </>

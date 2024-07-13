@@ -1,7 +1,7 @@
 import Button from '../Button/Button';
 import style from './Pagination.module.scss';
 
-export interface IProps {
+interface IProps {
   totalPages: number;
   onClick: (value: number) => void;
 }
