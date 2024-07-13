@@ -1,9 +1,9 @@
-import { IAnimalResponse } from '../utils/interfaces';
+import { IAnimalResponse, IAnimalsResponse } from '../utils/interfaces';
 
-const getData = async (
+export const getData = async (
   value: string,
   page: { number: number; size: number },
-): Promise<IAnimalResponse> => {
+): Promise<IAnimalsResponse> => {
   const response = await fetch(
     `https://stapi.co/api/v1/rest/animal/search?pageNumber=${page.number}&pageSize=${page.size}&name=${value}`,
     {
@@ -18,9 +18,29 @@ const getData = async (
   if (!response.ok) {
     throw new Error(`HTTP error! status: ${response.status}`);
   } else {
-    const json = (await response.json()) as IAnimalResponse;
+    const json = (await response.json()) as IAnimalsResponse;
     return json;
   }
 };
 
-export default getData;
+export const getCurrentAnimal = async (
+  UID: string,
+): Promise<IAnimalResponse> => {
+  const response = await fetch(
+    `https://stapi.co/api/v1/rest/animal?uid=${UID}`,
+    {
+      method: 'GET',
+      headers: {
+        accept: 'application/json',
+        'Content-Type': 'application/json;charset=UTF-8',
+      },
+    },
+  );
+
+  if (!response.ok) {
+    throw new Error(`HTTP error! status: ${response.status}`);
+  } else {
+    const json = (await response.json()) as IAnimalResponse;
+    return json;
+  }
+};

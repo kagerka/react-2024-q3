@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import getData from '../../services/api';
+import { getData } from '../../services/api';
 
-import { IAnimal, IAnimalResponse } from '../../utils/interfaces';
+import { IAnimal, IAnimalsResponse } from '../../utils/interfaces';
 import Content from '../Content/Content';
 import Header from '../Header/Header';
 
@@ -25,7 +25,7 @@ function Home() {
       number: pageValue,
       size: 12,
     })
-      .then((data: IAnimalResponse) => {
+      .then((data: IAnimalsResponse) => {
         setTotalPages(data.page.totalPages);
         return setSearchResult(data.animals);
       })

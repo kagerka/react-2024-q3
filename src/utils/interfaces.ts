@@ -1,4 +1,4 @@
-export interface IAnimalResponse {
+export interface IAnimalsResponse {
   page: {
     pageNumber: number;
     pageSize: number;
@@ -21,4 +21,8 @@ export interface IAnimal {
   feline: boolean;
   name: string;
   uid: string;
+}
+
+export interface IAnimalResponse {
+  animal: IAnimal;
 }

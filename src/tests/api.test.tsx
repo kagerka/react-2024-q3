@@ -1,5 +1,5 @@
 import { beforeAll, describe, expect, test } from 'vitest';
-import getData from '../services/api';
+import { getData } from '../services/api';
 
 describe('Request search', () => {
   let response: Response;

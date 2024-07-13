@@ -2,16 +2,18 @@
 
 .card {
   width: 250px;
-  min-height: 300px;
+  min-height: 190px;
+  height: fit-content;
   border-radius: 4px;
   box-shadow: 4px 4px 8px 0 rgba(34, 60, 80, 0.2);
   background: $dark-white;
   display: flex;
   flex-direction: column;
-  justify-content: top;
+  justify-content: center;
   box-sizing: border-box;
   align-items: center;
-  padding: 20px 10px;
+  padding: 10px;
+  cursor: pointer;
 }
 
 .title {
@@ -28,5 +30,11 @@
 
   & img {
     width: 80px;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .card {
+    width: 100%;
   }
 }
