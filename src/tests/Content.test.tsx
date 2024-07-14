@@ -12,6 +12,10 @@ const animal = {
   uid: 'ANMA0000079699',
 };
 
+const handleDetails = (uid: string) => {
+  return uid;
+};
+
 describe('Content', () => {
   test('renders the Content component', () => {
     render(
@@ -21,6 +25,8 @@ describe('Content', () => {
         isSearching={false}
         totalPages={5}
         onClick={() => {}}
+        handleDetails={() => handleDetails('ANMA0000079699')}
+        animalUID="ANMA0000079699"
       />,
     );
     expect(screen.getByText('You searched word "bird"')).toBeDefined();
