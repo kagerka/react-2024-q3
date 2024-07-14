@@ -1,1 +1,1 @@
-npx run test
+npm test
