@@ -44,7 +44,7 @@ function DetailedCard(props: ICardInfo) {
         {earthInsect ? <img src={insectImg} alt={name} /> : null}
         {feline ? <img src={felineImg} alt={name} /> : null}
         {!feline && !earthInsect && !earthAnimal && !canine && !avian ? (
-          <img src={unknownImg} alt={name} />
+          <img src={unknownImg} alt={name} title={name} />
         ) : null}
       </div>
       <h2 className={style.title}>{name}</h2>

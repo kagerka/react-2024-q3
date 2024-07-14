@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import { describe, expect, test } from 'vitest';
+import { beforeEach, describe, expect, Mock, test, vi } from 'vitest';
 import Content from '../views/Content/Content';
 
 const animal = {
@@ -16,7 +16,31 @@ const handleDetails = (uid: string) => {
   return uid;
 };
 
+vi.mock('', () => ({
+  Loader: () => <div data-testId="loaderId" />,
+}));
+
 describe('Content', () => {
+  beforeEach(() => {
+    global.fetch = vi.fn();
+  });
+
+  test('Loading', () => {
+    (fetch as Mock).mockResolvedValue({ json: () => Promise.resolve() });
+    render(
+      <Content
+        searchValue="bird"
+        searchResult={[animal]}
+        isSearching={false}
+        totalPages={5}
+        onClick={() => {}}
+        handleDetails={() => handleDetails('ANMA0000079699')}
+      />,
+    );
+    const loader = screen.queryByTestId('loaderId');
+    expect(loader).toBe(null);
+  });
+
   test('renders the Content component', () => {
     render(
       <Content
@@ -26,11 +50,9 @@ describe('Content', () => {
         totalPages={5}
         onClick={() => {}}
         handleDetails={() => handleDetails('ANMA0000079699')}
-        animalUID="ANMA0000079699"
       />,
     );
     expect(screen.getByText('You searched word "bird"')).toBeDefined();
-    expect(screen.getByText('This is an avian')).toBeDefined();
-    expect(screen.getByAltText('Dunghill bird')).toBeDefined();
+    expect(screen.getByText('Dunghill bird')).toBeDefined();
   });
 });

@@ -1,6 +1,5 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Blocks } from 'react-loader-spinner';
-import { Outlet } from 'react-router-dom';
 import Card from '../../components/Card/Card';
 import Pagination from '../../components/Pagination/Pagination';
 import { getCurrentAnimal } from '../../services/api';
@@ -15,7 +14,6 @@ interface IProps {
   totalPages: number;
   onClick: (value: number) => void;
   handleDetails: (value: string) => void;
-  animalUID: string;
 }
 
 const defaultAnimal = {
@@ -35,7 +33,6 @@ function Content({
   totalPages,
   onClick,
   handleDetails,
-  animalUID,
 }: IProps) {
   const [isLoading, setIsLoading] = useState(true);
   const [currentAnimal, setCurrentAnimal] = useState<IAnimal>(defaultAnimal);
@@ -53,20 +50,14 @@ function Content({
       });
   };
 
-  const handleCloseClick = useCallback(() => {
+  const handleCloseClick = () => {
     setCurrentAnimal(defaultAnimal);
     handleDetails('');
-  }, [handleDetails]);
-
-  useEffect(() => {
-    if (animalUID === '') {
-      handleCloseClick();
-    }
-  }, [animalUID, currentAnimal, handleCloseClick]);
+  };
 
   return (
     <div className={style.wrapper}>
-      <Outlet />
+      {/* <Outlet /> */}
       <div className={style.searchWord}>
         {searchValue ? (
           <p>You searched word &quot;{searchValue}&quot;</p>

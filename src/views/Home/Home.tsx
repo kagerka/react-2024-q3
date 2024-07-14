@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useCallback, useEffect, useState } from 'react';
+import { Outlet, useNavigate, useSearchParams } from 'react-router-dom';
 import { getData } from '../../services/api';
 
 import { IAnimal, IAnimalsResponse } from '../../utils/interfaces';
@@ -36,19 +36,26 @@ function Home() {
       });
   }, [searchValue, pageValue]);
 
-  useEffect(() => {
-    setSearchParams({ page: pageValue.toString(), name: searchValue });
-    navigate(
-      `/search?page=${encodeURIComponent(pageValue + 1)}&name=${encodeURIComponent(searchValue)}${currentUID !== '' ? `&uid=${encodeURIComponent(currentUID)}` : ''}`,
-    );
-  }, [searchValue, pageValue, setSearchParams, navigate, currentUID]);
+  const handleParams = useCallback(
+    (page: number, search: string, uid: string) => {
+      setSearchParams({ page: page.toString(), name: search, uid });
+      navigate(
+        `/search?page=${encodeURIComponent(page + 1)}${search !== '' ? `&name=${encodeURIComponent(search)}` : ''}${uid !== '' ? `&uid=${encodeURIComponent(uid)}` : ''}`,
+      );
+    },
+    [navigate, setSearchParams],
+  );
 
-  const handleParams = (page: number, search: string, uid: string) => {
-    setSearchParams({ page: page.toString(), name: search, uid });
-    navigate(
-      `/search?page=${encodeURIComponent(page + 1)}&name=${encodeURIComponent(search)}${uid !== '' ? `&uid=${encodeURIComponent(uid)}` : ''}`,
-    );
-  };
+  useEffect(() => {
+    handleParams(pageValue, searchValue, currentUID);
+  }, [
+    searchValue,
+    pageValue,
+    setSearchParams,
+    navigate,
+    currentUID,
+    handleParams,
+  ]);
 
   const handleDetails = (uid: string) => {
     setCurrentUID(uid);
@@ -71,6 +78,7 @@ function Home() {
   return (
     <>
       <Header onSubmit={handleSubmit} searchValue={searchValue} />
+      <Outlet />
       <Content
         searchValue={searchValue}
         searchResult={searchResult}
@@ -78,7 +86,6 @@ function Home() {
         totalPages={totalPages}
         onClick={handleClick}
         handleDetails={handleDetails}
-        animalUID={currentUID}
       />
     </>
   );
