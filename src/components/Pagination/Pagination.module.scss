@@ -1,0 +1,28 @@
+@import '../../styles/colors.scss';
+
+.wrapper {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+  max-width: 90%;
+}
+.pageNumber {
+  border: 1px solid $gray;
+  background: $white;
+  font-size: 18px;
+  padding: 4px 8px;
+  min-width: 40px;
+
+  &:hover {
+    background: $blue;
+    border-color: $blue;
+    color: $white;
+  }
+
+  &:active {
+    background: $dark-blue;
+    border-color: $dark-blue;
+    color: $white;
+  }
+}
