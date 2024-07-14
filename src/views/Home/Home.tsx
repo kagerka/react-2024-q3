@@ -11,6 +11,7 @@ function Home() {
     localStorage.getItem('searchValue') ?? '',
   );
   const [pageValue, setPageValue] = useState(0);
+  const [currentUID, setCurrentUID] = useState('');
 
   const [searchResult, setSearchResult] = useState<IAnimal[]>([]);
   const [totalPages, setTotalPages] = useState(0);
@@ -33,29 +34,38 @@ function Home() {
       .catch(() => {
         throw new Error('There is a problem with fetching data');
       });
+  }, [searchValue, pageValue]);
 
+  useEffect(() => {
     setSearchParams({ page: pageValue.toString(), name: searchValue });
     navigate(
-      `/search?page=${encodeURIComponent(pageValue + 1)}&name=${encodeURIComponent(searchValue)}`,
+      `/search?page=${encodeURIComponent(pageValue + 1)}&name=${encodeURIComponent(searchValue)}${currentUID !== '' ? `&uid=${encodeURIComponent(currentUID)}` : ''}`,
     );
-  }, [searchValue, pageValue, setSearchParams, navigate]);
+  }, [searchValue, pageValue, setSearchParams, navigate, currentUID]);
 
-  const handleParams = (page: number, search: string) => {
-    setSearchParams({ page: page.toString(), name: search });
+  const handleParams = (page: number, search: string, uid: string) => {
+    setSearchParams({ page: page.toString(), name: search, uid });
     navigate(
-      `/search?page=${encodeURIComponent(page + 1)}&name=${encodeURIComponent(search)}`,
+      `/search?page=${encodeURIComponent(page + 1)}&name=${encodeURIComponent(search)}${uid !== '' ? `&uid=${encodeURIComponent(uid)}` : ''}`,
     );
+  };
+
+  const handleDetails = (uid: string) => {
+    setCurrentUID(uid);
+    handleParams(pageValue, searchValue, currentUID);
   };
 
   const handleSubmit = (value: string) => {
     setSearchValue(value);
     setPageValue(0);
-    handleParams(pageValue, value);
+    setCurrentUID('');
+    handleParams(pageValue, value, currentUID);
   };
 
   const handleClick = (value: number) => {
     setPageValue(value);
-    handleParams(value, searchValue);
+    setCurrentUID('');
+    handleParams(value, searchValue, currentUID);
   };
 
   return (
@@ -67,6 +77,8 @@ function Home() {
         isSearching={isSearching}
         totalPages={totalPages}
         onClick={handleClick}
+        handleDetails={handleDetails}
+        animalUID={currentUID}
       />
     </>
   );

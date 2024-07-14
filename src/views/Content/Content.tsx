@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Blocks } from 'react-loader-spinner';
 import { Outlet } from 'react-router-dom';
 import Card from '../../components/Card/Card';
@@ -14,6 +14,8 @@ interface IProps {
   isSearching: boolean;
   totalPages: number;
   onClick: (value: number) => void;
+  handleDetails: (value: string) => void;
+  animalUID: string;
 }
 
 const defaultAnimal = {
@@ -32,13 +34,15 @@ function Content({
   isSearching,
   totalPages,
   onClick,
+  handleDetails,
+  animalUID,
 }: IProps) {
   const [isLoading, setIsLoading] = useState(true);
   const [currentAnimal, setCurrentAnimal] = useState<IAnimal>(defaultAnimal);
 
   const handleClick = (currentUID: string) => {
     setIsLoading(true);
-
+    handleDetails(currentUID);
     getCurrentAnimal(currentUID)
       .then((data: IAnimalResponse) => {
         return setCurrentAnimal(data.animal);
@@ -49,9 +53,16 @@ function Content({
       });
   };
 
-  const handleCloseClick = () => {
+  const handleCloseClick = useCallback(() => {
     setCurrentAnimal(defaultAnimal);
-  };
+    handleDetails('');
+  }, [handleDetails]);
+
+  useEffect(() => {
+    if (animalUID === '') {
+      handleCloseClick();
+    }
+  }, [animalUID, currentAnimal, handleCloseClick]);
 
   return (
     <div className={style.wrapper}>
