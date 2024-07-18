@@ -9,20 +9,22 @@
 }
 .pageNumber {
   border: 1px solid $gray;
-  background: $white;
+  border-color: light-dark($gray, $medium-gray);
+  background-color: light-dark($white, $dark-gray);
+  color: light-dark($gray, $medium-gray);
   font-size: 18px;
   padding: 4px 8px;
   min-width: 40px;
 
   &:hover {
-    background: $blue;
-    border-color: $blue;
-    color: $white;
+    border-color: light-dark($blue, $medium-gray);
+    color: light-dark($white, $medium-gray);
+    background-color: light-dark($blue, $dark-black);
   }
 
   &:active {
-    background: $dark-blue;
-    border-color: $dark-blue;
-    color: $white;
+    border-color: light-dark($dark-blue, $medium-gray);
+    color: light-dark($white, $medium-gray);
+    background-color: light-dark($dark-blue, $deep-gray);
   }
 }

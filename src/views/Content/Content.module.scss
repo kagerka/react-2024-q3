@@ -1,7 +1,6 @@
 @import '../../styles/colors.scss';
 
 .wrapper {
-  background-color: $white;
   padding: 20px 80px;
   display: flex;
   flex-direction: column;
@@ -14,7 +13,7 @@
   font-family: Roboto, serif;
   font-size: 24px;
   font-weight: 300;
-  color: $gray;
+  color: light-dark($gray, $light-gray);
 
   & p {
     margin: 10px 0 0;

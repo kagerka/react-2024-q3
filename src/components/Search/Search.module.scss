@@ -13,22 +13,23 @@
   font-family: Roboto, serif;
   font-size: 24px;
   font-weight: 300;
-  color: $gray;
+  color: light-dark($gray, $white);
   background-repeat: no-repeat;
   background-position: 10px;
   background-size: 26px;
-  background-color: $dark-white;
+  background-color: light-dark($dark-white, $black);
+  border-color: light-dark(transparent, $medium-gray);
   background-image: url(./../../assets/loupe.svg);
-  transition: all 0.5s;
+  transition: all 0.2s;
 
   &::placeholder {
-    color: $medium-gray;
+    color: light-dark($medium-gray, $light-gray);
     font-weight: 100;
   }
 
   &:focus {
     outline: none;
-    background-color: $white;
+    background-color: light-dark($white, $dark-gray);
   }
 }
 

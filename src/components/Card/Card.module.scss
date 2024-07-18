@@ -6,7 +6,7 @@
   height: fit-content;
   border-radius: 4px;
   box-shadow: 4px 4px 8px 0 rgba(34, 60, 80, 0.2);
-  background: $dark-white;
+  background-color: light-dark($dark-white, $black);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -14,11 +14,17 @@
   align-items: center;
   padding: 10px;
   cursor: pointer;
+  color: light-dark($dark-gray, $medium-gray);
+  transition: 0.2s ease-in-out;
+
+  &:hover {
+    background-color: light-dark($dark-white, $dark-black);
+  }
 }
 
 .title {
   font-weight: 500;
-  color: $dark-gray;
+  color: light-dark($dark-gray, $light-gray);
 }
 
 .image {

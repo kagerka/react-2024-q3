@@ -1,4 +1,5 @@
 import Search from '../../components/Search/Search';
+import ThemeSelector from '../../components/ThemeSelector/ThemeSelector';
 import style from './Header.module.scss';
 
 interface IProps {
@@ -15,6 +16,7 @@ function Header(props: IProps) {
         searchValue={searchValue}
         onSubmit={onSubmit}
       />
+      <ThemeSelector />
     </div>
   );
 }
