@@ -42,7 +42,7 @@
   border-radius: 30px;
   text-align: center;
   background-color: $medium-gray;
-  transition: background-color 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
 
   &::before,
   &::after {

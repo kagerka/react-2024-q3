@@ -15,7 +15,7 @@
   padding: 10px;
   cursor: pointer;
   color: light-dark($dark-gray, $medium-gray);
-  transition: 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
 
   &:hover {
     background-color: light-dark($dark-white, $dark-black);
