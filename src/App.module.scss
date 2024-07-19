@@ -1,0 +1,7 @@
+@import './styles/colors';
+
+.app {
+  color-scheme: light dark;
+  background-color: light-dark($white, $dark-gray);
+  transition: all 0.2s ease-in-out;
+}

@@ -6,9 +6,6 @@ body {
   line-height: 1.5;
   font-weight: 400;
 
-  color-scheme: light dark;
-  background-color: light-dark($white, $dark-gray);
-
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -18,7 +15,6 @@ body {
   display: flex;
   min-width: 320px;
   min-height: 100vh;
-  transition: all 0.2s ease-in-out;
 }
 
 #root {

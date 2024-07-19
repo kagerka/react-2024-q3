@@ -1,19 +1,10 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 import ThemeContext from '../../utils/ThemeContext';
 import style from './ThemeSelector.module.scss';
 
 function ThemeSelector() {
   const [checked, setChecked] = useState(true);
-  const { theme, setTheme } = useContext(ThemeContext);
-
-  useEffect(() => {
-    if (theme === 'light') {
-      document.body.setAttribute('style', 'color-scheme: light');
-    }
-    if (theme === 'dark') {
-      document.body.setAttribute('style', 'color-scheme: dark');
-    }
-  }, [theme]);
+  const { setTheme } = useContext(ThemeContext);
 
   const handleChange = () => {
     setChecked(!checked);
