@@ -34,5 +34,14 @@ module.exports = {
         functions: 'defaultArguments',
       },
     ],
+    '@typescript-eslint/no-misused-promises': [
+      'error',
+      {
+        checksVoidReturn: {
+          attributes: false,
+        },
+      },
+    ],
+    'no-param-reassign': ['error', { props: false }],
   },
 };

@@ -3,21 +3,21 @@ import style from './Card.module.scss';
 
 interface ICardInfo {
   animal: IAnimal;
-  onClick: (value: string) => void;
+  onClick: (value: string) => Promise<void>;
 }
 
 function Card(props: ICardInfo) {
   const { animal, onClick } = props;
   const { name, uid } = animal;
 
-  const handleClick = (currentUID: string) => {
-    onClick(currentUID);
+  const handleClick = async (currentUID: string) => {
+    await onClick(currentUID);
   };
 
-  const handleKeyPress = (e: React.KeyboardEvent, currentUID: string) => {
+  const handleKeyPress = async (e: React.KeyboardEvent, currentUID: string) => {
     if (e.key === 'Enter') {
       e.preventDefault();
-      handleClick(currentUID);
+      await handleClick(currentUID);
     }
   };
 

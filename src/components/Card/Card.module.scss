@@ -18,7 +18,7 @@
   transition: all 0.2s ease-in-out;
 
   &:hover {
-    background-color: light-dark($dark-white, $dark-black);
+    background-color: light-dark($light-gray, $dark-black);
   }
 }
 

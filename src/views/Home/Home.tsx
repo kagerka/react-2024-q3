@@ -1,8 +1,9 @@
 import { useCallback, useEffect, useState } from 'react';
 import { Outlet, useNavigate, useSearchParams } from 'react-router-dom';
-import { getData } from '../../services/api';
 
-import { IAnimal, IAnimalsResponse } from '../../utils/interfaces';
+import { useGetAnimalsQuery } from '../../services/api';
+import ITEMS_PER_PAGE from '../../utils/constants';
+import { IAnimal } from '../../utils/interfaces';
 import Content from '../Content/Content';
 import Header from '../Header/Header';
 
@@ -12,29 +13,24 @@ function Home() {
   );
   const [pageValue, setPageValue] = useState(0);
   const [currentUID, setCurrentUID] = useState('');
-
   const [searchResult, setSearchResult] = useState<IAnimal[]>([]);
   const [totalPages, setTotalPages] = useState(0);
-  const [isSearching, setIsSearching] = useState(true);
-
   const [, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
 
+  const { data, error, isLoading } = useGetAnimalsQuery({
+    pageNumber: pageValue ?? 0,
+    pageSize: ITEMS_PER_PAGE,
+    searchValue: localStorage.getItem('searchValue') ?? searchValue,
+  });
+
   useEffect(() => {
-    setIsSearching(true);
-    getData(localStorage.getItem('searchValue') ?? searchValue, {
-      number: pageValue,
-      size: 12,
-    })
-      .then((data: IAnimalsResponse) => {
-        setTotalPages(data.page.totalPages);
-        return setSearchResult(data.animals);
-      })
-      .then(() => setIsSearching(false))
-      .catch(() => {
-        throw new Error('There is a problem with fetching data');
-      });
-  }, [searchValue, pageValue]);
+    if (data) {
+      setTotalPages(data.page.totalPages);
+      setSearchResult(data.animals);
+    }
+    if (error) console.error('There is a problem with fetching data', error);
+  }, [data, error]);
 
   const handleParams = useCallback(
     (page: number, search: string, uid: string) => {
@@ -82,7 +78,7 @@ function Home() {
       <Content
         searchValue={searchValue}
         searchResult={searchResult}
-        isSearching={isSearching}
+        isSearching={isLoading}
         totalPages={totalPages}
         onClick={handleClick}
         handleDetails={handleDetails}

@@ -49,6 +49,9 @@
   width: 50%;
   display: flex;
   justify-content: center;
+  position: sticky;
+  top: 40px;
+  height: fit-content;
 }
 
 .loaderWrapper {
@@ -80,8 +83,6 @@
 
   .detailsWrapper {
     width: 100%;
-    position: sticky;
-    top: 40px;
   }
 
   .cardsPaginationWrapper {

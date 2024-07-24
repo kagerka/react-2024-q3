@@ -1,9 +1,9 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Blocks } from 'react-loader-spinner';
 import Card from '../../components/Card/Card';
 import Pagination from '../../components/Pagination/Pagination';
-import { getCurrentAnimal } from '../../services/api';
-import { IAnimal, IAnimalResponse } from '../../utils/interfaces';
+import { useGetAnimalByUIDMutation } from '../../services/api';
+import { IAnimal } from '../../utils/interfaces';
 import DetailedCard from '../DetailedCard/DetailedCard';
 import style from './Content.module.scss';
 
@@ -34,20 +34,19 @@ function Content({
   onClick,
   handleDetails,
 }: IProps) {
-  const [isLoading, setIsLoading] = useState(true);
   const [currentAnimal, setCurrentAnimal] = useState<IAnimal>(defaultAnimal);
+  const [getCurrentAnimal, { data, error, isLoading }] =
+    useGetAnimalByUIDMutation();
 
-  const handleClick = (currentUID: string) => {
-    setIsLoading(true);
+  useEffect(() => {
+    if (data) setCurrentAnimal(data.animal);
+  }, [data]);
+
+  const handleClick = async (currentUID: string) => {
+    await getCurrentAnimal(currentUID);
+    if (data) setCurrentAnimal(data.animal);
+    if (error) console.error('There is a problem with fetching data', error);
     handleDetails(currentUID);
-    getCurrentAnimal(currentUID)
-      .then((data: IAnimalResponse) => {
-        return setCurrentAnimal(data.animal);
-      })
-      .then(() => setIsLoading(false))
-      .catch(() => {
-        throw new Error('There is a problem with fetching data');
-      });
   };
 
   const handleCloseClick = () => {
@@ -57,7 +56,6 @@ function Content({
 
   return (
     <div className={style.wrapper}>
-      {/* <Outlet /> */}
       <div className={style.searchWord}>
         {searchValue ? (
           <p>You searched word &quot;{searchValue}&quot;</p>
@@ -119,7 +117,7 @@ function Content({
                 />
               ) : (
                 <DetailedCard
-                  animal={currentAnimal}
+                  animal={data !== undefined ? data?.animal : currentAnimal}
                   onClick={handleCloseClick}
                 />
               )}
