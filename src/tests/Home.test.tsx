@@ -13,9 +13,7 @@ describe('Home', () => {
       </BrowserRouter>,
     );
     expect(screen.getByText('Submit')).toBeDefined();
-    expect(
-      screen.getByText('You can search any animal you want'),
-    ).toBeDefined();
+    expect(screen.getByText('You can search any animal you want')).toBeDefined();
     expect(screen.getByPlaceholderText('Search...')).toBeDefined();
   });
 });

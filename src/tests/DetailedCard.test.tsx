@@ -37,9 +37,7 @@ describe('Search', () => {
   });
 
   test('renders the Search component', () => {
-    render(
-      <DetailedCard animal={animalUndefined} onClick={() => handleSubmit} />,
-    );
+    render(<DetailedCard animal={animalUndefined} onClick={() => handleSubmit} />);
     expect(screen.getByText('Dunghill bird')).toBeDefined();
     expect(screen.getByText('ID: ANMA0000079699')).toBeDefined();
     expect(screen.getByAltText('Dunghill bird')).toBeDefined();

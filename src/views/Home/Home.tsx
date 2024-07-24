@@ -1,36 +1,36 @@
-import { useCallback, useEffect, useState } from 'react';
-import { Outlet, useNavigate, useSearchParams } from 'react-router-dom';
+import { useCallback, useEffect } from 'react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 
+import { useDispatch, useSelector } from 'react-redux';
 import { useGetAnimalsQuery } from '../../services/api';
-import ITEMS_PER_PAGE from '../../utils/constants';
-import { IAnimal } from '../../utils/interfaces';
+import { loading, searchResult, totalPages } from '../../store/appSlice';
+import { RootState } from '../../store/store';
+import { ITEMS_PER_PAGE } from '../../utils/constants';
 import Content from '../Content/Content';
 import Header from '../Header/Header';
 
 function Home() {
-  const [searchValue, setSearchValue] = useState(
-    localStorage.getItem('searchValue') ?? '',
-  );
-  const [pageValue, setPageValue] = useState(0);
-  const [currentUID, setCurrentUID] = useState('');
-  const [searchResult, setSearchResult] = useState<IAnimal[]>([]);
-  const [totalPages, setTotalPages] = useState(0);
-  const [, setSearchParams] = useSearchParams();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { data, error, isLoading } = useGetAnimalsQuery({
-    pageNumber: pageValue ?? 0,
+  const pageNumber = useSelector((store: RootState) => store.app.pageNumber);
+  const currentAnimal = useSelector((store: RootState) => store.app.currentAnimalData);
+  const searchString = useSelector((store: RootState) => store.app.searchString);
+  const [, setSearchParams] = useSearchParams();
+
+  const { data, error, isFetching } = useGetAnimalsQuery({
+    pageNumber: pageNumber ?? 0,
     pageSize: ITEMS_PER_PAGE,
-    searchValue: localStorage.getItem('searchValue') ?? searchValue,
+    searchValue: localStorage.getItem('searchValue') ?? searchString,
   });
 
   useEffect(() => {
     if (data) {
-      setTotalPages(data.page.totalPages);
-      setSearchResult(data.animals);
+      dispatch(totalPages(data.page.totalPages));
+      dispatch(searchResult(data.animals));
     }
     if (error) console.error('There is a problem with fetching data', error);
-  }, [data, error]);
+  }, [data, error, searchString, dispatch]);
 
   const handleParams = useCallback(
     (page: number, search: string, uid: string) => {
@@ -43,46 +43,23 @@ function Home() {
   );
 
   useEffect(() => {
-    handleParams(pageValue, searchValue, currentUID);
+    handleParams(pageNumber, searchString, currentAnimal.uid);
+    dispatch(loading(isFetching));
   }, [
-    searchValue,
-    pageValue,
     setSearchParams,
     navigate,
-    currentUID,
+    currentAnimal.uid,
     handleParams,
+    dispatch,
+    isFetching,
+    pageNumber,
+    searchString,
   ]);
-
-  const handleDetails = (uid: string) => {
-    setCurrentUID(uid);
-    handleParams(pageValue, searchValue, currentUID);
-  };
-
-  const handleSubmit = (value: string) => {
-    setSearchValue(value);
-    setPageValue(0);
-    setCurrentUID('');
-    handleParams(pageValue, value, currentUID);
-  };
-
-  const handleClick = (value: number) => {
-    setPageValue(value);
-    setCurrentUID('');
-    handleParams(value, searchValue, currentUID);
-  };
 
   return (
     <>
-      <Header onSubmit={handleSubmit} searchValue={searchValue} />
-      <Outlet />
-      <Content
-        searchValue={searchValue}
-        searchResult={searchResult}
-        isSearching={isLoading}
-        totalPages={totalPages}
-        onClick={handleClick}
-        handleDetails={handleDetails}
-      />
+      <Header />
+      <Content />
     </>
   );
 }

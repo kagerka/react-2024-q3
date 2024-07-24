@@ -1,16 +1,18 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { currentAnimalData, pageNumber, searchString } from '../../store/appSlice';
+import { DEFAULT_ANIMAL } from '../../utils/constants';
 import Button from '../Button/Button';
 import style from './Search.module.scss';
 
-interface IProps {
-  placeholder: string;
-  searchValue: string;
-  onSubmit: (value: string) => void;
-}
+function Search() {
+  const dispatch = useDispatch();
 
-function Search(props: IProps) {
-  const { placeholder, searchValue, onSubmit } = props;
-  const [valueState, setValueState] = useState(searchValue);
+  const [valueState, setValueState] = useState('');
+
+  useEffect(() => {
+    setValueState(localStorage.getItem('searchValue')!);
+  }, []);
 
   const handleChange = (e: React.FormEvent) => {
     const { value } = e.target as HTMLInputElement;
@@ -20,7 +22,9 @@ function Search(props: IProps) {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     localStorage.setItem('searchValue', valueState);
-    onSubmit(valueState);
+    dispatch(searchString(valueState));
+    dispatch(pageNumber(0));
+    dispatch(currentAnimalData(DEFAULT_ANIMAL));
   };
 
   return (
@@ -28,7 +32,7 @@ function Search(props: IProps) {
       <input
         type="text"
         className={style.input}
-        placeholder={placeholder}
+        placeholder="Search..."
         onChange={handleChange}
         value={valueState}
       />

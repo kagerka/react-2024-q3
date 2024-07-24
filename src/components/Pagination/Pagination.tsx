@@ -1,17 +1,17 @@
+import { useDispatch, useSelector } from 'react-redux';
+import { currentAnimalData, pageNumber } from '../../store/appSlice';
+import { RootState } from '../../store/store';
+import { DEFAULT_ANIMAL } from '../../utils/constants';
 import Button from '../Button/Button';
 import style from './Pagination.module.scss';
 
-interface IProps {
-  totalPages: number;
-  onClick: (value: number) => void;
-}
-
-function Pagination(props: IProps) {
-  const { totalPages, onClick } = props;
-
+function Pagination() {
+  const dispatch = useDispatch();
+  const totalPages = useSelector((store: RootState) => store.app.totalPages);
   const handleClickBtn = (e: React.MouseEvent, page: number) => {
     e.preventDefault();
-    onClick(page - 1);
+    dispatch(pageNumber(page - 1));
+    dispatch(currentAnimalData(DEFAULT_ANIMAL));
   };
 
   const pages = [];

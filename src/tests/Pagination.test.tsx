@@ -5,7 +5,7 @@ import Pagination from '../components/Pagination/Pagination';
 
 describe('Pagination', () => {
   beforeEach(() => {
-    render(<Pagination totalPages={10} onClick={() => {}} />);
+    render(<Pagination />);
   });
 
   test('renders the Search component', () => {

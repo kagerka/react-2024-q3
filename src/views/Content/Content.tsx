@@ -1,87 +1,71 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { Blocks } from 'react-loader-spinner';
+import { useDispatch, useSelector } from 'react-redux';
 import Card from '../../components/Card/Card';
 import Pagination from '../../components/Pagination/Pagination';
 import { useGetAnimalByUIDMutation } from '../../services/api';
+import { currentAnimalData } from '../../store/appSlice';
+import { RootState } from '../../store/store';
+import { DEFAULT_ANIMAL } from '../../utils/constants';
 import { IAnimal } from '../../utils/interfaces';
 import DetailedCard from '../DetailedCard/DetailedCard';
 import style from './Content.module.scss';
 
-interface IProps {
-  searchValue: string;
-  searchResult: IAnimal[];
-  isSearching: boolean;
-  totalPages: number;
-  onClick: (value: number) => void;
-  handleDetails: (value: string) => void;
-}
+function Content() {
+  const dispatch = useDispatch();
 
-const defaultAnimal = {
-  avian: false,
-  canine: false,
-  earthAnimal: false,
-  earthInsect: false,
-  feline: false,
-  name: '',
-  uid: '',
-};
+  const [getCurrentAnimal, { data, error, isLoading }] = useGetAnimalByUIDMutation();
 
-function Content({
-  searchValue,
-  searchResult,
-  isSearching,
-  totalPages,
-  onClick,
-  handleDetails,
-}: IProps) {
-  const [currentAnimal, setCurrentAnimal] = useState<IAnimal>(defaultAnimal);
-  const [getCurrentAnimal, { data, error, isLoading }] =
-    useGetAnimalByUIDMutation();
+  const loadingStatus = useSelector((store: RootState) => store.app.loading);
+  const searchStringValue = useSelector((store: RootState) => store.app.searchString);
+  const searchResult = useSelector((store: RootState) => store.app.searchResult);
+  const currentAnimal = useSelector((store: RootState) => store.app.currentAnimalData);
 
   useEffect(() => {
-    if (data) setCurrentAnimal(data.animal);
-  }, [data]);
+    if (data) dispatch(currentAnimalData(data.animal));
+  }, [data, dispatch]);
 
   const handleClick = async (currentUID: string) => {
     await getCurrentAnimal(currentUID);
-    if (data) setCurrentAnimal(data.animal);
     if (error) console.error('There is a problem with fetching data', error);
-    handleDetails(currentUID);
+    if (data) dispatch(currentAnimalData(data.animal));
   };
 
   const handleCloseClick = () => {
-    setCurrentAnimal(defaultAnimal);
-    handleDetails('');
+    dispatch(currentAnimalData(DEFAULT_ANIMAL));
+  };
+
+  const spinner = () => {
+    return (
+      <Blocks
+        height="80"
+        width="80"
+        color="#4fa94d"
+        ariaLabel="blocks-loading"
+        wrapperStyle={{}}
+        wrapperClass="blocks-wrapper"
+        visible
+      />
+    );
   };
 
   return (
     <div className={style.wrapper}>
       <div className={style.searchWord}>
-        {searchValue ? (
-          <p>You searched word &quot;{searchValue}&quot;</p>
+        {searchStringValue ? (
+          <p>You searched word &quot;{searchStringValue}&quot;</p>
         ) : (
           <p>You can search any animal you want</p>
         )}
       </div>
-      {isSearching ? (
-        <div className={style.loaderWrapper}>
-          <Blocks
-            height="80"
-            width="80"
-            color="#4fa94d"
-            ariaLabel="blocks-loading"
-            wrapperStyle={{}}
-            wrapperClass="blocks-wrapper"
-            visible
-          />
-        </div>
+      {loadingStatus ? (
+        <div className={style.loaderWrapper}>{spinner()}</div>
       ) : (
         <div className={style.cardsPaginationDetailsWrapper}>
           <div
             className={
-              currentAnimal.uid === ''
-                ? style.cardsPaginationWrapper
-                : `${style.cardsPaginationWrapper} ${style.detailedActive}`
+              (currentAnimal.uid === '' && style.cardsPaginationWrapper) ||
+              `${style.cardsPaginationWrapper} ${style.detailedActive}`
             }
           >
             <div className={style.cardsWrapper}>
@@ -99,22 +83,12 @@ function Content({
                 })
               )}
             </div>
-            {searchResult.length !== 0 ? (
-              <Pagination totalPages={totalPages} onClick={onClick} />
-            ) : null}
+            {searchResult.length !== 0 ? <Pagination /> : null}
           </div>
           {currentAnimal.uid !== '' ? (
             <div className={style.detailsWrapper}>
               {isLoading ? (
-                <Blocks
-                  height="80"
-                  width="80"
-                  color="#4fa94d"
-                  ariaLabel="blocks-loading"
-                  wrapperStyle={{}}
-                  wrapperClass="blocks-wrapper"
-                  visible
-                />
+                spinner()
               ) : (
                 <DetailedCard
                   animal={data !== undefined ? data?.animal : currentAnimal}

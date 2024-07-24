@@ -6,11 +6,7 @@ interface IState {
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
 }
 
-function Button({
-  name,
-  className = style.button,
-  onClick = () => {},
-}: IState) {
+function Button({ name, className = style.button, onClick = () => {} }: IState) {
   return (
     <button type="submit" className={className} onClick={onClick}>
       {name}

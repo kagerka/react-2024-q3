@@ -36,8 +36,8 @@ class ErrorBoundary extends Component<IProps, IState> {
       return (
         <div className={style.wrapper}>
           <p>
-            Something went wrong. If you want to go to the previews page, click
-            the button &quot;Go back&quot;
+            Something went wrong. If you want to go to the previews page, click the button &quot;Go
+            back&quot;
           </p>
           <Button name="Go back" onClick={this.handleClick} />
         </div>

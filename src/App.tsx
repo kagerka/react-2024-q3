@@ -18,10 +18,7 @@ function App() {
   };
 
   return (
-    <main
-      style={theme === 'light' ? lightTheme : darkTheme}
-      className={style.app}
-    >
+    <main style={theme === 'light' ? lightTheme : darkTheme} className={style.app}>
       <ThemeContext.Provider value={themeContext}>
         <BrowserRouter>
           <Routes>
