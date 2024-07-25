@@ -1,36 +1,45 @@
-// import { beforeAll, describe, expect, test } from 'vitest';
-// import { getCurrentAnimal, getData } from '../services/api';
+import '@testing-library/jest-dom';
+import { fireEvent, render, screen } from '@testing-library/react';
+import { http, HttpResponse } from 'msw';
+import { setupServer } from 'msw/node';
+import { Provider } from 'react-redux';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { afterAll, afterEach, beforeAll, expect, test } from 'vitest';
+import Search from '../components/Search/Search';
+import { store } from '../store/store';
 
-// describe('Request search', () => {
-//   let response: Response;
-//   const json = getData('dog', { number: 1, size: 10 });
-//   beforeAll(async () => {
-//     response = await fetch(
-//       'https://stapi.co/api/v1/rest/animal/search??pageNumber=1&name=dog',
-//     );
-//   }, 3000);
+const server = setupServer(
+  http.get('https://stapi.co/api/v1/rest/animal?uid=ANMA0000079699', () => {
+    return HttpResponse.json({
+      animal: {
+        uid: 'ANMA0000079699',
+        name: 'Dunghill bird',
+        earthAnimal: false,
+        earthInsect: false,
+        avian: true,
+        canine: false,
+        feline: false,
+      },
+    });
+  }),
+);
 
-//   test('Should have response status 200', () => {
-//     expect(response.status).toBe(200);
-//   });
-//   test('Should exist', () => {
-//     expect(json).toBeTruthy();
-//   });
-// });
+beforeAll(() => server.listen());
+afterEach(() => server.resetHandlers());
+afterAll(() => server.close());
 
-// describe('Request search', () => {
-//   let response: Response;
-//   const json = getCurrentAnimal('ANMA0000079699');
-//   beforeAll(async () => {
-//     response = await fetch(
-//       'https://stapi.co/api/v1/rest/animal?uid=ANMA0000079699',
-//     );
-//   }, 3000);
+test('loads and displays Search component', () => {
+  render(
+    <Provider store={store}>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Search />} />
+        </Routes>
+      </BrowserRouter>
+    </Provider>,
+  );
 
-//   test('Should have response status 200', () => {
-//     expect(response.status).toBe(200);
-//   });
-//   test('Should exist', () => {
-//     expect(json).toBeTruthy();
-//   });
-// });
+  fireEvent.click(screen.getByText('Submit'));
+
+  expect(screen.getByRole('button')).toHaveTextContent('Submit');
+});

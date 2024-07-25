@@ -27,8 +27,11 @@
     "vite": "^5.3.3"
   },
   "devDependencies": {
-    "@testing-library/jest-dom": "^6.4.6",
+    "@sveltejs/vite-plugin-svelte": "^3.1.1",
+    "@testing-library/dom": "^10.4.0",
+    "@testing-library/jest-dom": "^6.4.8",
     "@testing-library/react": "^16.0.0",
+    "@testing-library/svelte": "^5.2.0",
     "@testing-library/user-event": "^14.5.2",
     "@types/node": "^20.14.9",
     "@types/react": "^18.3.3",
@@ -49,6 +52,7 @@
     "husky": "^9.0.11",
     "jsdom": "^24.1.0",
     "lint-staged": "^15.2.7",
+    "msw": "^2.3.4",
     "prettier": "3.3.2",
     "sass": "^1.77.6",
     "typescript": "^5.2.2",

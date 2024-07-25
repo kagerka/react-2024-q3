@@ -15,14 +15,11 @@ module.exports = {
   parserOptions: {
     project: ['./tsconfig.app.json', './tsconfig.node.json'],
   },
-  ignorePatterns: ['dist', '.eslintrc.cjs', '.husky'],
+  ignorePatterns: ['dist', '.eslintrc.cjs', '.husky', 'vitest-setup.ts'],
   parser: '@typescript-eslint/parser',
   plugins: ['react-refresh', 'react-compiler', '@typescript-eslint'],
   rules: {
-    'react-refresh/only-export-components': [
-      'warn',
-      { allowConstantExport: true },
-    ],
+    'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
     '@typescript-eslint/no-explicit-any': 'error',
     'react-compiler/react-compiler': 'error',
     'react/static-property-placement': ['error', 'static public field'],

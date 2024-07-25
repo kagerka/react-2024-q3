@@ -1,11 +1,17 @@
 import { render, screen } from '@testing-library/react';
+import { Provider } from 'react-redux';
 import { describe, expect, test } from 'vitest';
+import { store } from '../store/store';
 import Header from '../views/Header/Header';
 
 describe('Header', () => {
   test('renders the Header component', () => {
-    render(<Header />);
-    expect(screen.getByDisplayValue('bird')).toBeDefined();
+    render(
+      <Provider store={store}>
+        <Header />
+      </Provider>,
+    );
+    expect(screen.getByDisplayValue('')).toBeDefined();
     expect(screen.getByText('Submit')).toBeDefined();
     expect(screen.getByPlaceholderText('Search...')).toBeDefined();
   });

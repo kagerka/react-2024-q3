@@ -34,7 +34,7 @@ function Search() {
         className={style.input}
         placeholder="Search..."
         onChange={handleChange}
-        value={valueState}
+        value={valueState || ''}
       />
       <Button name="Submit" />
     </form>

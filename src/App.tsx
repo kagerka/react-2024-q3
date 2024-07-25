@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import style from './App.module.scss';
 import ThemeContext from './utils/ThemeContext';
 import Home from './views/Home/Home';
@@ -20,13 +20,13 @@ function App() {
   return (
     <main style={theme === 'light' ? lightTheme : darkTheme} className={style.app}>
       <ThemeContext.Provider value={themeContext}>
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/search" element={<Home />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </BrowserRouter>
+        {/* <BrowserRouter> */}
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/search" element={<Home />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+        {/* </BrowserRouter> */}
       </ThemeContext.Provider>
     </main>
   );

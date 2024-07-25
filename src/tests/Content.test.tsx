@@ -1,5 +1,7 @@
 import { render, screen } from '@testing-library/react';
+import { Provider } from 'react-redux';
 import { beforeEach, describe, expect, Mock, test, vi } from 'vitest';
+import { store } from '../store/store';
 import Content from '../views/Content/Content';
 
 vi.mock('', () => ({
@@ -13,14 +15,22 @@ describe('Content', () => {
 
   test('Loading', () => {
     (fetch as Mock).mockResolvedValue({ json: () => Promise.resolve() });
-    render(<Content />);
+    render(
+      <Provider store={store}>
+        <Content />
+      </Provider>,
+    );
     const loader = screen.queryByTestId('loaderId');
     expect(loader).toBe(null);
   });
 
   test('renders the Content component', () => {
-    render(<Content />);
-    expect(screen.getByText('You searched word "bird"')).toBeDefined();
-    expect(screen.getByText('Dunghill bird')).toBeDefined();
+    render(
+      <Provider store={store}>
+        <Content />
+      </Provider>,
+    );
+    expect(screen.getByText('Nothing was found')).toBeDefined();
+    expect(screen.getByText('You can search any animal you want')).toBeDefined();
   });
 });
