@@ -2,10 +2,12 @@ import { configureStore } from '@reduxjs/toolkit';
 import { setupListeners } from '@reduxjs/toolkit/query';
 import { animalApi } from '../services/api';
 import appReducer from './appSlice';
+import checkedReducer from './checkedSlice';
 
 export const store = configureStore({
   reducer: {
     app: appReducer,
+    checked: checkedReducer,
     [animalApi.reducerPath]: animalApi.reducer,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(animalApi.middleware),

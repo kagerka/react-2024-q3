@@ -43,6 +43,8 @@
   flex-wrap: wrap;
   gap: 30px;
   justify-content: center;
+  position: relative;
+  z-index: 0;
 }
 
 .detailsWrapper {
@@ -94,7 +96,6 @@
 
 @media screen and (max-width: 480px) {
   .wrapper {
-    background-color: $white;
     padding: 20px 40px;
     display: flex;
     flex-direction: column;

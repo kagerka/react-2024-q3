@@ -1,0 +1,63 @@
+@import '../../styles/colors.scss';
+
+.wrapper {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  z-index: 1;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.checkboxForm {
+  width: fit-content;
+  height: fit-content;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.checkboxInput {
+  width: 0;
+  height: 0;
+  position: absolute;
+  z-index: 1;
+  opacity: 0;
+  right: 0;
+  cursor: pointer;
+
+  &:checked ~ .label {
+    background-color: $medium-gray;
+    background-color: light-dark($medium-gray, $dark-gray);
+
+    &::after {
+      color: $yellow;
+    }
+  }
+}
+
+.label {
+  position: absolute;
+  z-index: 0;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  width: fit-content;
+  height: fit-content;
+  top: 0px;
+  right: 0px;
+
+  &::after {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    font-size: 36px;
+    line-height: 1;
+    content: '\2605';
+    margin-left: 10px;
+    color: light-dark($light-gray, $dark-gray);
+    padding: 2px 4px;
+    transition: all 0.2s ease-in-out;
+  }
+}

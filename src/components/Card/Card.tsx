@@ -1,4 +1,5 @@
 import { IAnimal } from '../../utils/interfaces';
+import Checkbox from '../Checkbox/Checkbox';
 import style from './Card.module.scss';
 
 interface ICardInfo {
@@ -31,6 +32,7 @@ function Card(props: ICardInfo) {
     >
       <h2 className={style.title}>{name}</h2>
       <p>ID: {uid}</p>
+      <Checkbox animal={animal} />
     </div>
   );
 }

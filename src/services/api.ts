@@ -19,6 +19,7 @@ export const animalApi = createApi({
           searchValue !== ''
             ? `search?pageNumber=${pageNumber}&pageSize=${pageSize}&name=${searchValue}`
             : `search?pageNumber=${pageNumber}&pageSize=${pageSize}`,
+
         method: 'POST',
       }),
       providesTags: [{ type: 'Animals', id: 'LIST' }],

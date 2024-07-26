@@ -20,13 +20,11 @@ function App() {
   return (
     <main style={theme === 'light' ? lightTheme : darkTheme} className={style.app}>
       <ThemeContext.Provider value={themeContext}>
-        {/* <BrowserRouter> */}
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/search" element={<Home />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
-        {/* </BrowserRouter> */}
       </ThemeContext.Provider>
     </main>
   );

@@ -9,18 +9,24 @@ import Search from '../components/Search/Search';
 import { store } from '../store/store';
 
 const server = setupServer(
-  http.get('https://stapi.co/api/v1/rest/animal?uid=ANMA0000079699', () => {
-    return HttpResponse.json({
-      animal: {
-        uid: 'ANMA0000079699',
-        name: 'Dunghill bird',
-        earthAnimal: false,
-        earthInsect: false,
-        avian: true,
-        canine: false,
-        feline: false,
-      },
-    });
+  http.get('https://stapi.co/api/v1/rest/animal', ({ request }) => {
+    const url = new URL(request.url);
+    const uid = url.searchParams.get('uid');
+    let result;
+    if (uid === 'ANMA0000079699') {
+      result = HttpResponse.json({
+        animal: {
+          uid: 'ANMA0000079699',
+          name: 'Dunghill bird',
+          earthAnimal: false,
+          earthInsect: false,
+          avian: true,
+          canine: false,
+          feline: false,
+        },
+      });
+    }
+    return result;
   }),
 );
 

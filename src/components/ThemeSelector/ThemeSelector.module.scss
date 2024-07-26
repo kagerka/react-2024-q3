@@ -85,3 +85,13 @@
     transition: transform 200ms;
   }
 }
+
+@media screen and (max-width: 1000px) {
+  .wrapper {
+    padding: 12px 0;
+  }
+
+  .label {
+    left: -35px;
+  }
+}

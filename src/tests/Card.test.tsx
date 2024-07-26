@@ -1,6 +1,8 @@
 import { render, screen } from '@testing-library/react';
+import { Provider } from 'react-redux';
 import { describe, expect, test } from 'vitest';
 import Card from '../components/Card/Card';
+import { store } from '../store/store';
 
 const animal = {
   avian: true,
@@ -14,7 +16,11 @@ const animal = {
 
 describe('Card', () => {
   test('renders the Card component', () => {
-    render(<Card animal={animal} onClick={async () => {}} />);
+    render(
+      <Provider store={store}>
+        <Card animal={animal} onClick={async () => {}} />
+      </Provider>,
+    );
     expect(screen.getByText('Dunghill bird')).toBeDefined();
     expect(screen.getByText('ID: ANMA0000079699')).toBeDefined();
   });
