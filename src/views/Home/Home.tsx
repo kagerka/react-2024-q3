@@ -2,6 +2,7 @@ import { useCallback, useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 
 import { useDispatch, useSelector } from 'react-redux';
+import FlyoutElement from '../../components/FlyoutElement/FlyoutElement';
 import { useGetAnimalsQuery } from '../../services/api';
 import { loading, searchResult, totalPages } from '../../store/appSlice';
 import { RootState } from '../../store/store';
@@ -60,6 +61,7 @@ function Home() {
     <>
       <Header />
       <Content />
+      <FlyoutElement />
     </>
   );
 }

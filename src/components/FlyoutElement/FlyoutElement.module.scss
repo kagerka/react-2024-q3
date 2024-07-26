@@ -1,0 +1,42 @@
+@import '../../styles/colors.scss';
+
+.wrapper {
+  width: fit-content;
+  height: fit-content;
+  background-color: $red;
+  position: sticky;
+  bottom: 10px;
+  padding: 20px 40px;
+  background-color: light-dark($dark-gray, $black);
+  border: 1px solid;
+  border-color: light-dark(transparent, $medium-gray);
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  border-radius: 10px;
+}
+
+.title {
+  color: $white;
+  font-size: 28px;
+  font-weight: 200;
+  line-height: 1.1;
+}
+
+.titleNumber {
+  font-weight: bold;
+}
+
+.buttons {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}
+
+@media screen and (max-width: 500px) {
+  .buttons {
+    display: flex;
+    flex-direction: column;
+  }
+}

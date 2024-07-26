@@ -5,6 +5,7 @@ const checkedSlice = createSlice({
   name: 'checkedItems',
   initialState: {
     checkedItems: [] as IAnimal[],
+    clearAll: [],
   },
   reducers: {
     addItem(state, action: PayloadAction<IAnimal>) {
@@ -21,9 +22,12 @@ const checkedSlice = createSlice({
     removeItem(state, action: PayloadAction<IAnimal>) {
       state.checkedItems = state.checkedItems.filter((item) => item.uid !== action.payload.uid);
     },
+    clearAll(state, action: PayloadAction<[]>) {
+      state.checkedItems = action.payload;
+    },
   },
 });
 
-export const { addItem, removeItem } = checkedSlice.actions;
+export const { addItem, removeItem, clearAll } = checkedSlice.actions;
 
 export default checkedSlice.reducer;
