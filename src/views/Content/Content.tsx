@@ -1,0 +1,106 @@
+import { useEffect } from 'react';
+import { Blocks } from 'react-loader-spinner';
+import { useDispatch, useSelector } from 'react-redux';
+import Card from '../../components/Card/Card';
+import Pagination from '../../components/Pagination/Pagination';
+import { useGetAnimalByUIDMutation } from '../../services/api';
+import { currentAnimalData } from '../../store/appSlice';
+import { RootState } from '../../store/store';
+import { DEFAULT_ANIMAL } from '../../utils/constants';
+import { IAnimal } from '../../utils/interfaces';
+import DetailedCard from '../DetailedCard/DetailedCard';
+import style from './Content.module.scss';
+
+function Content() {
+  const dispatch = useDispatch();
+
+  const [getCurrentAnimal, { data, error, isLoading }] = useGetAnimalByUIDMutation();
+
+  const loadingStatus = useSelector((store: RootState) => store.app.loading);
+  const searchStringValue = useSelector((store: RootState) => store.app.searchString);
+  const searchResult = useSelector((store: RootState) => store.app.searchResult);
+  const currentAnimal = useSelector((store: RootState) => store.app.currentAnimalData);
+
+  useEffect(() => {
+    if (data) dispatch(currentAnimalData(data.animal));
+  }, [data, dispatch]);
+
+  const handleClick = async (currentUID: string) => {
+    await getCurrentAnimal(currentUID);
+    if (error) console.error('There is a problem with fetching data', error);
+    if (data) dispatch(currentAnimalData(data.animal));
+  };
+
+  const handleCloseClick = () => {
+    dispatch(currentAnimalData(DEFAULT_ANIMAL));
+  };
+
+  const spinner = () => {
+    return (
+      <Blocks
+        height="80"
+        width="80"
+        color="#4fa94d"
+        ariaLabel="blocks-loading"
+        wrapperStyle={{}}
+        wrapperClass="blocks-wrapper"
+        visible
+      />
+    );
+  };
+
+  return (
+    <div className={style.wrapper}>
+      <div className={style.searchWord}>
+        {searchStringValue ? (
+          <p>You searched word &quot;{searchStringValue}&quot;</p>
+        ) : (
+          <p>You can search any animal you want</p>
+        )}
+      </div>
+      {loadingStatus ? (
+        <div className={style.loaderWrapper}>{spinner()}</div>
+      ) : (
+        <div className={style.cardsPaginationDetailsWrapper}>
+          <div
+            className={
+              (currentAnimal.uid === '' && style.cardsPaginationWrapper) ||
+              `${style.cardsPaginationWrapper} ${style.detailedActive}`
+            }
+          >
+            <div className={style.cardsWrapper}>
+              {searchResult.length === 0 ? (
+                <p className={style.notFound}>Nothing was found</p>
+              ) : (
+                searchResult?.map((animal: IAnimal) => {
+                  return (
+                    <Card
+                      key={animal.uid}
+                      animal={animal}
+                      onClick={() => handleClick(animal.uid)}
+                    />
+                  );
+                })
+              )}
+            </div>
+            {searchResult.length !== 0 ? <Pagination /> : null}
+          </div>
+          {currentAnimal.uid !== '' ? (
+            <div className={style.detailsWrapper}>
+              {isLoading ? (
+                spinner()
+              ) : (
+                <DetailedCard
+                  animal={data !== undefined ? data?.animal : currentAnimal}
+                  onClick={handleCloseClick}
+                />
+              )}
+            </div>
+          ) : null}
+        </div>
+      )}
+    </div>
+  );
+}
+
+export default Content;

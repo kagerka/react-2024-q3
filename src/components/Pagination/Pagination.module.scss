@@ -1,0 +1,30 @@
+@import '../../styles/colors.scss';
+
+.wrapper {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+  max-width: 90%;
+}
+.pageNumber {
+  border: 1px solid $gray;
+  border-color: light-dark($gray, $medium-gray);
+  background-color: light-dark($white, $dark-gray);
+  color: light-dark($gray, $medium-gray);
+  font-size: 18px;
+  padding: 4px 8px;
+  min-width: 40px;
+
+  &:hover {
+    border-color: light-dark($blue, $medium-gray);
+    color: light-dark($white, $medium-gray);
+    background-color: light-dark($blue, $dark-black);
+  }
+
+  &:active {
+    border-color: light-dark($dark-blue, $medium-gray);
+    color: light-dark($white, $medium-gray);
+    background-color: light-dark($dark-blue, $deep-gray);
+  }
+}

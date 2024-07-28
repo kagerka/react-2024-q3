@@ -1,0 +1,16 @@
+@import '../../styles/colors.scss';
+
+.button {
+  color: $gray;
+  color: light-dark($gray, $medium-gray);
+  background-color: light-dark($light-gray, $black);
+  border-color: light-dark(transparent, $medium-gray);
+
+  &:hover {
+    background-color: light-dark($dark-white, $dark-gray);
+  }
+
+  &:active {
+    background-color: light-dark($white, $deep-gray);
+  }
+}
