@@ -25,6 +25,7 @@ function DetailedCard(props: ICardInfo) {
       e.preventDefault();
       handleClick();
     }
+    return 'Enter';
   };
 
   return (
@@ -36,6 +37,7 @@ function DetailedCard(props: ICardInfo) {
         role="link"
         tabIndex={0}
         aria-label="Close button"
+        data-testid="card-info"
       />
       <div className={style.image}>
         {avian ? <img src={avianImg} alt={name} /> : null}

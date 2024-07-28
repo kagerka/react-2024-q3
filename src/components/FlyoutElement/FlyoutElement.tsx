@@ -24,7 +24,7 @@ function FlyoutElement() {
     });
     let csv = '';
     tableData.forEach((row) => {
-      csv += `${row.join(',')}\n`;
+      csv += `${row.join(';')}\n`;
     });
     const blob = new Blob([csv], { type: 'text/csv;charset=utf-8,' });
     const dataLink = URL.createObjectURL(blob);
@@ -41,7 +41,12 @@ function FlyoutElement() {
       </div>
       <div className={style.buttons}>
         <Button name="Unselect all" className={style.unselectBtn} onClick={handleUnselectClick} />
-        <a href={csvLink} aria-label="Download">
+        <a
+          href={csvLink}
+          aria-label="Download"
+          download={`${checkedItems.length}_animals`}
+          data-testid="download"
+        >
           <Button name="Download" className={style.downloadBtn} onClick={handleDownloadClick} />
         </a>
       </div>

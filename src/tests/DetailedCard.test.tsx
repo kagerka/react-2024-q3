@@ -1,6 +1,8 @@
 import '@testing-library/jest-dom';
-import { render, screen } from '@testing-library/react';
-import { describe, expect, test } from 'vitest';
+import { fireEvent, render, screen } from '@testing-library/react';
+import { Provider } from 'react-redux';
+import { afterEach, describe, expect, it, test, vi } from 'vitest';
+import { store } from '../store/store';
 import DetailedCard from '../views/DetailedCard/DetailedCard';
 
 const animal = {
@@ -27,8 +29,26 @@ const handleSubmit = (e: Event) => {
   e.preventDefault();
 };
 
-describe('Search', () => {
-  test('renders the Search component', () => {
+describe('DetailedCard', () => {
+  afterEach(() => {
+    vi.restoreAllMocks();
+  });
+
+  it('handleClick', () => {
+    const handleClick = vi.fn();
+
+    render(
+      <Provider store={store}>
+        <DetailedCard animal={animal} onClick={() => handleClick} />
+      </Provider>,
+    );
+
+    expect(screen.getAllByTestId('card-info')[0]).toHaveAttribute('role');
+    fireEvent.click(screen.getAllByTestId('card-info')[0]);
+    expect(handleClick).toHaveBeenCalledTimes(0);
+  });
+
+  test('renders the DetailedCard component', () => {
     render(<DetailedCard animal={animal} onClick={() => handleSubmit} />);
     expect(screen.getByText('Dunghill bird')).toBeDefined();
     expect(screen.getByText('ID: ANMA0000079699')).toBeDefined();
@@ -36,7 +56,7 @@ describe('Search', () => {
     expect(screen.getByLabelText('Close button')).toBeDefined();
   });
 
-  test('renders the Search component', () => {
+  test('renders the DetailedCard component', () => {
     render(<DetailedCard animal={animalUndefined} onClick={() => handleSubmit} />);
     expect(screen.getByText('Dunghill bird')).toBeDefined();
     expect(screen.getByText('ID: ANMA0000079699')).toBeDefined();
