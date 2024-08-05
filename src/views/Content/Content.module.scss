@@ -14,6 +14,8 @@
   font-size: 24px;
   font-weight: 300;
   color: light-dark($gray, $light-gray);
+  display: flex;
+  justify-content: center;
 
   & p {
     margin: 10px 0 0;

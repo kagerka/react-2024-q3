@@ -1,3 +1,4 @@
+import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import { Blocks } from 'react-loader-spinner';
 import { useDispatch, useSelector } from 'react-redux';
@@ -13,6 +14,7 @@ import style from './Content.module.scss';
 
 function Content() {
   const dispatch = useDispatch();
+  const router = useRouter();
 
   const [getCurrentAnimal, { data, error, isLoading }] = useGetAnimalByUIDMutation();
 
@@ -20,6 +22,7 @@ function Content() {
   const searchStringValue = useSelector((store: RootState) => store.app.searchString);
   const searchResult = useSelector((store: RootState) => store.app.searchResult);
   const currentAnimal = useSelector((store: RootState) => store.app.currentAnimalData);
+  const pageNumber = useSelector((store: RootState) => store.app.pageNumber);
 
   useEffect(() => {
     if (data) dispatch(currentAnimalData(data.animal));
@@ -29,10 +32,16 @@ function Content() {
     await getCurrentAnimal(currentUID);
     if (error) console.error('There is a problem with fetching data', error);
     if (data) dispatch(currentAnimalData(data.animal));
+    router.replace(
+      `/search?page=${pageNumber + 1}${searchStringValue !== '' ? `&name=${searchStringValue}` : ''}&uid=${currentUID}`,
+    );
   };
 
   const handleCloseClick = () => {
     dispatch(currentAnimalData(DEFAULT_ANIMAL));
+    router.replace(
+      `/search?page=${pageNumber + 1}${searchStringValue !== '' ? `&name=${searchStringValue}` : ''}`,
+    );
   };
 
   const spinner = () => {

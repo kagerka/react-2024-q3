@@ -11,11 +11,14 @@ module.exports = {
     'plugin:react/jsx-runtime',
     'plugin:react-hooks/recommended',
     'plugin:prettier/recommended',
+    'next/core-web-vitals',
+    'next',
   ],
   parserOptions: {
-    project: ['./tsconfig.app.json', './tsconfig.node.json'],
+    project: ['./tsconfig.json'],
+    // warnOnUnsupportedTypeScriptVersion: false,
   },
-  ignorePatterns: ['dist', '.eslintrc.cjs', '.husky', 'vitest-setup.ts'],
+  ignorePatterns: ['dist', '.eslintrc.cjs', '.husky', 'vitest-setup.ts', 'next.config.mts'],
   parser: '@typescript-eslint/parser',
   plugins: ['react-refresh', 'react-compiler', '@typescript-eslint'],
   rules: {
@@ -40,5 +43,11 @@ module.exports = {
       },
     ],
     'no-param-reassign': ['error', { props: false }],
+    'react/jsx-props-no-spreading': [
+      'error',
+      {
+        custom: 'ignore',
+      },
+    ],
   },
 };
