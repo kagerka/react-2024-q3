@@ -1,10 +1,8 @@
 import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
 import { Blocks } from 'react-loader-spinner';
 import { useDispatch, useSelector } from 'react-redux';
 import Card from '../../components/Card/Card';
 import Pagination from '../../components/Pagination/Pagination';
-import { useGetAnimalByUIDMutation } from '../../services/api';
 import { currentAnimalData } from '../../store/appSlice';
 import { RootState } from '../../store/store';
 import { DEFAULT_ANIMAL } from '../../utils/constants';
@@ -16,22 +14,19 @@ function Content() {
   const dispatch = useDispatch();
   const router = useRouter();
 
-  const [getCurrentAnimal, { data, error, isLoading }] = useGetAnimalByUIDMutation();
-
   const loadingStatus = useSelector((store: RootState) => store.app.loading);
-  const searchStringValue = useSelector((store: RootState) => store.app.searchString);
-  const searchResult = useSelector((store: RootState) => store.app.searchResult);
-  const currentAnimal = useSelector((store: RootState) => store.app.currentAnimalData);
+  const searchStringValue = useSelector(
+    (store: RootState) => store.app.searchString,
+  );
+  const searchResult = useSelector(
+    (store: RootState) => store.app.searchResult,
+  );
+  const currentAnimal = useSelector(
+    (store: RootState) => store.app.currentAnimalData,
+  );
   const pageNumber = useSelector((store: RootState) => store.app.pageNumber);
 
-  useEffect(() => {
-    if (data) dispatch(currentAnimalData(data.animal));
-  }, [data, dispatch]);
-
-  const handleClick = async (currentUID: string) => {
-    await getCurrentAnimal(currentUID);
-    if (error) console.error('There is a problem with fetching data', error);
-    if (data) dispatch(currentAnimalData(data.animal));
+  const handleClick = (currentUID: string) => {
     router.replace(
       `/search?page=${pageNumber + 1}${searchStringValue !== '' ? `&name=${searchStringValue}` : ''}&uid=${currentUID}`,
     );
@@ -62,9 +57,9 @@ function Content() {
     <div className={style.wrapper}>
       <div className={style.searchWord}>
         {searchStringValue ? (
-          <p>You searched word &quot;{searchStringValue}&quot;</p>
+          <div>You searched word &quot;{searchStringValue}&quot;</div>
         ) : (
-          <p>You can search any animal you want</p>
+          <div>You can search any animal you want</div>
         )}
       </div>
       {loadingStatus ? (
@@ -79,7 +74,7 @@ function Content() {
           >
             <div className={style.cardsWrapper}>
               {searchResult.length === 0 ? (
-                <p className={style.notFound}>Nothing was found</p>
+                <div className={style.notFound}>Nothing was found</div>
               ) : (
                 searchResult?.map((animal: IAnimal) => {
                   return (
@@ -96,14 +91,7 @@ function Content() {
           </div>
           {currentAnimal.uid !== '' ? (
             <div className={style.detailsWrapper}>
-              {isLoading ? (
-                spinner()
-              ) : (
-                <DetailedCard
-                  animal={data !== undefined ? data?.animal : currentAnimal}
-                  onClick={handleCloseClick}
-                />
-              )}
+              <DetailedCard animal={currentAnimal} onClick={handleCloseClick} />
             </div>
           ) : null}
         </div>

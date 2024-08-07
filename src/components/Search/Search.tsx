@@ -1,7 +1,12 @@
 import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { currentAnimalData, pageNumber, searchString } from '../../store/appSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  currentAnimalData,
+  pageNumber,
+  searchString,
+} from '../../store/appSlice';
+import { RootState } from '../../store/store';
 import { DEFAULT_ANIMAL } from '../../utils/constants';
 import Button from '../Button/Button';
 import style from './Search.module.scss';
@@ -10,6 +15,7 @@ function Search() {
   const dispatch = useDispatch();
 
   const router = useRouter();
+  const page = useSelector((store: RootState) => store.app.pageNumber);
 
   const [valueState, setValueState] = useState('');
 
@@ -29,7 +35,9 @@ function Search() {
     dispatch(pageNumber(0));
     dispatch(currentAnimalData(DEFAULT_ANIMAL));
 
-    router.replace(`/search?page=${1}${valueState !== '' ? `&name=${valueState}` : ''}`);
+    router.replace(
+      `/search?page=${page + 1}${valueState !== '' ? `&name=${valueState}` : ''}`,
+    );
   };
 
   return (

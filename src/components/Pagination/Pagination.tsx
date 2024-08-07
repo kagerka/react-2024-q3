@@ -1,24 +1,23 @@
 import { useRouter } from 'next/navigation';
-import { useDispatch, useSelector } from 'react-redux';
-import { currentAnimalData, pageNumber } from '../../store/appSlice';
+import { useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
-import { DEFAULT_ANIMAL } from '../../utils/constants';
 import Button from '../Button/Button';
 import style from './Pagination.module.scss';
 
 function Pagination() {
-  const dispatch = useDispatch();
   const router = useRouter();
 
-  const searchString = useSelector((store: RootState) => store.app.searchString);
+  const searchString = useSelector(
+    (store: RootState) => store.app.searchString,
+  );
   const totalPages = useSelector((store: RootState) => store.app.totalPages);
 
   const handleClickBtn = (e: React.MouseEvent, page: number) => {
     e.preventDefault();
-    dispatch(pageNumber(page - 1));
-    dispatch(currentAnimalData(DEFAULT_ANIMAL));
 
-    router.replace(`/search?page=${page}${searchString !== '' ? `&name=${searchString}` : ''}`);
+    router.replace(
+      `/search?page=${page}${searchString !== '' ? `&name=${searchString}` : ''}`,
+    );
   };
 
   const pages = [];

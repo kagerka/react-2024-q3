@@ -10,10 +10,10 @@ function NotFound() {
       <div>
         <Image src={image as string} alt="Page not found" priority />
         <div className={styles.errorMessage}>
-          <p>
+          <div>
             An error occurred, please try again later. <br />
             Click the button below to go to the home page.
-          </p>
+          </div>
           <Link href="/">
             <Button name="Home page" />
           </Link>

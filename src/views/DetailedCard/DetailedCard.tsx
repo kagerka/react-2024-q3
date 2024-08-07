@@ -52,11 +52,11 @@ function DetailedCard(props: ICardInfo) {
       </div>
       <h2 className={style.title}>{name}</h2>
       <div>
-        {avian ? <p>This is an avian</p> : null}
-        {canine ? <p>This is a canine</p> : null}
-        {earthAnimal ? <p>This is an earth animal</p> : null}
-        {earthInsect ? <p>This is an earth insect</p> : null}
-        {feline ? <p>This is a feline</p> : null}
+        {avian ? <div>This is an avian</div> : null}
+        {canine ? <div>This is a canine</div> : null}
+        {earthAnimal ? <div>This is an earth animal</div> : null}
+        {earthInsect ? <div>This is an earth insect</div> : null}
+        {feline ? <div>This is a feline</div> : null}
       </div>
       <div>ID: {uid}</div>
     </div>

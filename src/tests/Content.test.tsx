@@ -31,6 +31,8 @@ describe('Content', () => {
       </Provider>,
     );
     expect(screen.getByText('Nothing was found')).toBeDefined();
-    expect(screen.getByText('You can search any animal you want')).toBeDefined();
+    expect(
+      screen.getByText('You can search any animal you want'),
+    ).toBeDefined();
   });
 });

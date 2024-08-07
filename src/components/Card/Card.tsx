@@ -4,21 +4,21 @@ import style from './Card.module.scss';
 
 interface ICardInfo {
   animal: IAnimal;
-  onClick: (value: string) => Promise<void>;
+  onClick: (value: string) => void;
 }
 
 function Card(props: ICardInfo) {
   const { animal, onClick } = props;
   const { name, uid } = animal;
 
-  const handleClick = async (currentUID: string) => {
-    await onClick(currentUID);
+  const handleClick = (currentUID: string) => {
+    onClick(currentUID);
   };
 
-  const handleKeyPress = async (e: React.KeyboardEvent, currentUID: string) => {
+  const handleKeyPress = (e: React.KeyboardEvent, currentUID: string) => {
     if (e.key === 'Enter') {
       e.preventDefault();
-      await handleClick(currentUID);
+      handleClick(currentUID);
     }
   };
 
@@ -31,7 +31,7 @@ function Card(props: ICardInfo) {
       tabIndex={0}
     >
       <h2 className={style.title}>{name}</h2>
-      <p>ID: {uid}</p>
+      <div>ID: {uid}</div>
       <Checkbox animal={animal} />
     </div>
   );

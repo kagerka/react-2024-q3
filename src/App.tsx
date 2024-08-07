@@ -1,27 +1,27 @@
-import { useMemo, useState } from 'react';
-import style from './App.module.scss';
-import ThemeContext from './utils/ThemeContext';
+import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { searchString } from './store/appSlice';
+import { RootState } from './store/store';
 import Home from './views/Home/Home';
 
 function App() {
-  const [theme, setTheme] = useState('light');
-  const themeContext = useMemo(() => ({ theme, setTheme }), [theme]);
+  const router = useRouter();
+  const dispatch = useDispatch();
 
-  const lightTheme = {
-    colorScheme: 'light',
-  };
-
-  const darkTheme = {
-    colorScheme: 'dark',
-  };
-
-  return (
-    <main style={theme === 'light' ? lightTheme : darkTheme} className={style.app}>
-      <ThemeContext.Provider value={themeContext}>
-        <Home />
-      </ThemeContext.Provider>
-    </main>
+  const searchStringValue = useSelector(
+    (store: RootState) => store.app.searchString,
   );
+  const pageNumber = useSelector((store: RootState) => store.app.pageNumber);
+
+  useEffect(() => {
+    dispatch(searchString(localStorage.getItem('searchValue')! || ''));
+    router.replace(
+      `/search?page=${pageNumber + 1}&name=${localStorage.getItem('searchValue') ?? ''}`,
+    );
+  }, [pageNumber, searchStringValue, router, dispatch]);
+
+  return <Home />;
 }
 
 export default App;

@@ -16,13 +16,18 @@ module.exports = {
   ],
   parserOptions: {
     project: ['./tsconfig.json'],
-    // warnOnUnsupportedTypeScriptVersion: false,
   },
-  ignorePatterns: ['dist', '.eslintrc.cjs', '.husky', 'vitest-setup.ts', 'next.config.mts'],
+  ignorePatterns: [
+    'dist',
+    '.eslintrc.cjs',
+    '.husky',
+    'vitest-setup.ts',
+    'next.config.mts',
+  ],
   parser: '@typescript-eslint/parser',
   plugins: ['react-refresh', 'react-compiler', '@typescript-eslint'],
   rules: {
-    'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
+    'react-refresh/only-export-components': [0, { allowConstantExport: true }],
     '@typescript-eslint/no-explicit-any': 'error',
     'react-compiler/react-compiler': 'error',
     'react/static-property-placement': ['error', 'static public field'],

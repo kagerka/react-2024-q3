@@ -35,10 +35,10 @@ class ErrorBoundary extends Component<IProps, IState> {
     if (hasError) {
       return (
         <div className={style.wrapper}>
-          <p>
-            Something went wrong. If you want to go to the previews page, click the button &quot;Go
-            back&quot;
-          </p>
+          <div>
+            Something went wrong. If you want to go to the previews page, click
+            the button &quot;Go back&quot;
+          </div>
           <Button name="Go back" onClick={this.handleClick} />
         </div>
       );
