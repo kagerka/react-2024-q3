@@ -70,7 +70,7 @@ function AppPage({ Component, pageProps }: AppProps) {
         <Provider store={store}>
           <main
             style={theme === 'light' ? lightTheme : darkTheme}
-            className={`${style.ap}p, ${roboto.className}`}
+            className={`${style.app}, ${roboto.className}`}
           >
             <ThemeContext.Provider value={themeContext}>
               <Component {...pageProps} />
