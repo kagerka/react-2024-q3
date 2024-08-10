@@ -1,4 +1,5 @@
 import type { AppProps } from 'next/app';
+import { Roboto } from 'next/font/google';
 import Head from 'next/head';
 import { Router } from 'next/router';
 import React, { useEffect, useMemo, useState } from 'react';
@@ -8,6 +9,12 @@ import style from '../App.module.scss';
 import '../index.scss';
 import { store } from '../store/store';
 import ThemeContext from '../utils/ThemeContext';
+
+const roboto = Roboto({
+  weight: ['100', '300', '400', '500', '700'],
+  subsets: ['latin'],
+  display: 'swap',
+});
 
 function AppPage({ Component, pageProps }: AppProps) {
   const [loading, setLoading] = React.useState(false);
@@ -63,7 +70,7 @@ function AppPage({ Component, pageProps }: AppProps) {
         <Provider store={store}>
           <main
             style={theme === 'light' ? lightTheme : darkTheme}
-            className={style.app}
+            className={`${style.ap}p, ${roboto.className}`}
           >
             <ThemeContext.Provider value={themeContext}>
               <Component {...pageProps} />
