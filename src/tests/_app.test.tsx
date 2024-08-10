@@ -30,6 +30,14 @@ vi.mock('next/navigation', () => ({
   },
 }));
 
+vi.mock('next/font/google', () => ({
+  Roboto: () => ({
+    style: {
+      fontFamily: 'mocked',
+    },
+  }),
+}));
+
 let component: React.FC;
 let pageProps: object;
 let router: Router;
