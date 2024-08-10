@@ -1,19 +1,22 @@
 import { render, screen } from '@testing-library/react';
 import { Provider } from 'react-redux';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { describe, expect, test } from 'vitest';
+import { describe, expect, test, vi } from 'vitest';
 import { store } from '../store/store';
 import Home from '../views/Home/Home';
+
+vi.mock('next/navigation', () => ({
+  useRouter() {
+    return {
+      prefetch: () => null,
+    };
+  },
+}));
 
 describe('Home', () => {
   test('renders the Home component', () => {
     render(
       <Provider store={store}>
-        <BrowserRouter>
-          <Routes>
-            <Route path="*" element={<Home />} />
-          </Routes>
-        </BrowserRouter>
+        <Home />
       </Provider>,
     );
     expect(screen.getByText('Submit')).toBeDefined();

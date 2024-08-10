@@ -23,15 +23,17 @@ function Card(props: ICardInfo) {
   };
 
   return (
-    <div
-      className={style.card}
-      onClick={() => handleClick(uid)}
-      onKeyDown={(e) => handleKeyPress(e, uid)}
-      role="link"
-      tabIndex={0}
-    >
-      <h2 className={style.title}>{name}</h2>
-      <div>ID: {uid}</div>
+    <div className={style.cardWrapper}>
+      <div
+        className={style.card}
+        onClick={() => handleClick(uid)}
+        onKeyDown={(e) => handleKeyPress(e, uid)}
+        role="link"
+        tabIndex={0}
+      >
+        <h2 className={style.title}>{name}</h2>
+        <div>ID: {uid}</div>
+      </div>
       <Checkbox animal={animal} />
     </div>
   );

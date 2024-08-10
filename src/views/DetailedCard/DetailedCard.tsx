@@ -41,13 +41,30 @@ function DetailedCard(props: ICardInfo) {
         data-testid="card-info"
       />
       <div className={style.image}>
-        {avian ? <Image src={avianImg} alt={name} /> : null}
-        {canine ? <Image src={canineImg} alt={name} /> : null}
-        {earthAnimal ? <Image src={earthImg} alt={name} /> : null}
-        {earthInsect ? <Image src={insectImg} alt={name} /> : null}
-        {feline ? <Image src={felineImg} alt={name} /> : null}
+        {avian ? (
+          <Image src={avianImg} alt={name} width={120} height={120} priority />
+        ) : null}
+        {canine ? (
+          <Image src={canineImg} alt={name} width={120} height={120} priority />
+        ) : null}
+        {earthAnimal ? (
+          <Image src={earthImg} alt={name} width={120} height={120} priority />
+        ) : null}
+        {earthInsect ? (
+          <Image src={insectImg} alt={name} width={120} height={120} priority />
+        ) : null}
+        {feline ? (
+          <Image src={felineImg} alt={name} width={120} height={120} priority />
+        ) : null}
         {!feline && !earthInsect && !earthAnimal && !canine && !avian ? (
-          <Image src={unknownImg} alt={name} title={name} />
+          <Image
+            src={unknownImg}
+            alt={name}
+            title={name}
+            width={120}
+            height={120}
+            priority
+          />
         ) : null}
       </div>
       <h2 className={style.title}>{name}</h2>

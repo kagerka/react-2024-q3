@@ -23,6 +23,8 @@ module.exports = {
     '.husky',
     'vitest-setup.ts',
     'next.config.mts',
+    'vitest.config.mts',
+    'tests',
   ],
   parser: '@typescript-eslint/parser',
   plugins: ['react-refresh', 'react-compiler', '@typescript-eslint'],
@@ -54,5 +56,6 @@ module.exports = {
         custom: 'ignore',
       },
     ],
+    '@next/next/no-document-import-in-page': 'off',
   },
 };

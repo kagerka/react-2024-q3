@@ -1,5 +1,6 @@
 import { GetServerSidePropsContext } from 'next';
 import { ParsedUrlQuery } from 'querystring';
+import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import {
   currentAnimalData,
@@ -16,14 +17,16 @@ export default function Search({
   data: IAnimalsResponse | IAnimalResponse;
 }) {
   const dispatch = useDispatch();
-  if ((data as IAnimalsResponse).animals) {
-    dispatch(totalPages((data as IAnimalsResponse).page.totalPages));
-    dispatch(pageNumber((data as IAnimalsResponse).page.pageNumber));
-    dispatch(searchResult((data as IAnimalsResponse).animals));
-  }
-  if ((data as IAnimalResponse).animal) {
-    dispatch(currentAnimalData((data as IAnimalResponse).animal));
-  }
+  useEffect(() => {
+    if ((data as IAnimalsResponse).animals) {
+      dispatch(totalPages((data as IAnimalsResponse).page.totalPages));
+      dispatch(pageNumber((data as IAnimalsResponse).page.pageNumber));
+      dispatch(searchResult((data as IAnimalsResponse).animals));
+    }
+    if ((data as IAnimalResponse).animal) {
+      dispatch(currentAnimalData((data as IAnimalResponse).animal));
+    }
+  }, [data, dispatch]);
 
   return <Home />;
 }

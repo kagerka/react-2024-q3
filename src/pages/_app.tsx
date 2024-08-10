@@ -9,7 +9,7 @@ import '../index.scss';
 import { store } from '../store/store';
 import ThemeContext from '../utils/ThemeContext';
 
-function App({ Component, pageProps }: AppProps) {
+function AppPage({ Component, pageProps }: AppProps) {
   const [loading, setLoading] = React.useState(false);
   useEffect(() => {
     const start = () => {
@@ -74,4 +74,4 @@ function App({ Component, pageProps }: AppProps) {
     </>
   );
 }
-export default App;
+export default AppPage;

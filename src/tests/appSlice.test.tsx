@@ -1,8 +1,8 @@
 import { expect, test } from 'vitest';
 import reducer from '../store/appSlice';
 
-test('should return the initial state', () => {
-  expect(reducer(undefined, { type: 'unknown' })).toEqual({
+test('App slice', () => {
+  expect(reducer(undefined, { type: 'string' })).toEqual({
     currentAnimalData: {
       avian: false,
       canine: false,

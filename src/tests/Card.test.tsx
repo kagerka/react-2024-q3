@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { Provider } from 'react-redux';
-import { describe, expect, test } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import Card from '../components/Card/Card';
 import { store } from '../store/store';
 
@@ -15,13 +15,19 @@ const animal = {
 };
 
 describe('Card', () => {
-  test('renders the Card component', () => {
+  const onClick = vi.fn();
+
+  it('Render Card component with checkbox', () => {
     render(
       <Provider store={store}>
-        <Card animal={animal} onClick={async () => {}} />
+        <Card animal={animal} onClick={onClick} />
       </Provider>,
     );
-    expect(screen.getByText('Dunghill bird')).toBeDefined();
-    expect(screen.getByText('ID: ANMA0000079699')).toBeDefined();
+
+    expect(screen.getAllByText('Dunghill bird')).toBeDefined();
+    expect(screen.getAllByText('ID: ANMA0000079699')).toBeDefined();
+
+    const checkboxElement = screen.getAllByRole('checkbox')[0];
+    expect(checkboxElement).toBeDefined();
   });
 });

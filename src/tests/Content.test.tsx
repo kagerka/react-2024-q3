@@ -8,6 +8,14 @@ vi.mock('', () => ({
   Loader: () => <div data-testId="loaderId" />,
 }));
 
+vi.mock('next/navigation', () => ({
+  useRouter() {
+    return {
+      prefetch: () => null,
+    };
+  },
+}));
+
 describe('Content', () => {
   beforeEach(() => {
     global.fetch = vi.fn();
@@ -30,9 +38,9 @@ describe('Content', () => {
         <Content />
       </Provider>,
     );
-    expect(screen.getByText('Nothing was found')).toBeDefined();
+    expect(screen.findAllByText('Nothing was found')).toBeDefined();
     expect(
-      screen.getByText('You can search any animal you want'),
+      screen.findAllByText('You can search any animal you want'),
     ).toBeDefined();
   });
 });

@@ -21,6 +21,12 @@
     "incremental": true,
     "plugins": [{ "name": "next" }]
   },
-  "include": ["./src", "./dist/types/**/*.ts", "./next-env.d.ts", "src/pages"],
+  "include": [
+    "./src",
+    "./dist/types/**/*.ts",
+    "./next-env.d.ts",
+    "src/pages",
+    "ErrorBoundary..tsx"
+  ],
   "exclude": ["./node_modules"]
 }

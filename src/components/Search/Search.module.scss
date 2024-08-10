@@ -19,7 +19,7 @@
   background-size: 26px;
   background-color: light-dark($dark-white, $black);
   border-color: light-dark(transparent, $medium-gray);
-  background-image: url(./../../assets/loupe.svg);
+  background-image: url(./../../../public/assets/loupe.svg);
   transition: all 0.2s ease-in-out;
 
   &::placeholder {

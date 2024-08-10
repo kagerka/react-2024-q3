@@ -1,5 +1,7 @@
 @import '../../styles/colors.scss';
-
+.cardWrapper {
+  position: relative;
+}
 .card {
   width: 250px;
   min-height: 190px;

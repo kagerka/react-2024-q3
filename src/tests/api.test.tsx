@@ -1,10 +1,9 @@
-import '@testing-library/jest-dom';
+import '@testing-library/jest-dom/vitest';
 import { fireEvent, render, screen } from '@testing-library/react';
 import { http, HttpResponse } from 'msw';
 import { setupServer } from 'msw/node';
 import { Provider } from 'react-redux';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { afterAll, afterEach, beforeAll, expect, test } from 'vitest';
+import { afterAll, afterEach, beforeAll, expect, test, vi } from 'vitest';
 import Search from '../components/Search/Search';
 import { store } from '../store/store';
 
@@ -34,14 +33,32 @@ beforeAll(() => server.listen());
 afterEach(() => server.resetHandlers());
 afterAll(() => server.close());
 
+vi.mock('next/navigation', () => ({
+  useRouter() {
+    return {
+      prefetch: () => null,
+    };
+  },
+}));
+
+vi.mock('next/navigation', () => ({
+  useRouter() {
+    return {
+      route: '/search',
+      pathname: '/search',
+      query: '',
+      asPath: '',
+      replace: () => {
+        return '/search';
+      },
+    };
+  },
+}));
+
 test('loads and displays Search component', () => {
   render(
     <Provider store={store}>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Search />} />
-        </Routes>
-      </BrowserRouter>
+      <Search />
     </Provider>,
   );
 

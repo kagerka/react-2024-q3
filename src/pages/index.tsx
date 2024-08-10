@@ -1,4 +1,5 @@
 import { GetServerSidePropsContext } from 'next';
+
 import { ParsedUrlQuery } from 'querystring';
 import { useDispatch } from 'react-redux';
 import App from '../App';

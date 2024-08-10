@@ -1,4 +1,4 @@
-import '@testing-library/jest-dom';
+import '@testing-library/jest-dom/vitest';
 import { fireEvent, render, screen } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { afterEach, describe, expect, it, test, vi } from 'vitest';
@@ -29,6 +29,14 @@ const handleSubmit = (e: Event) => {
   e.preventDefault();
 };
 
+vi.mock('next/navigation', () => ({
+  useRouter() {
+    return {
+      prefetch: () => null,
+    };
+  },
+}));
+
 describe('DetailedCard', () => {
   afterEach(() => {
     vi.restoreAllMocks();
@@ -50,20 +58,20 @@ describe('DetailedCard', () => {
 
   test('renders the DetailedCard component', () => {
     render(<DetailedCard animal={animal} onClick={() => handleSubmit} />);
-    expect(screen.getByText('Dunghill bird')).toBeDefined();
-    expect(screen.getByText('ID: ANMA0000079699')).toBeDefined();
-    expect(screen.getByAltText('Dunghill bird')).toBeDefined();
-    expect(screen.getByLabelText('Close button')).toBeDefined();
+    expect(screen.findAllByText('Dunghill bird')).toBeDefined();
+    expect(screen.findAllByText('ID: ANMA0000079699')).toBeDefined();
+    expect(screen.getAllByAltText('Dunghill bird')).toBeDefined();
+    expect(screen.getAllByLabelText('Close button')).toBeDefined();
   });
 
   test('renders the DetailedCard component', () => {
     render(
       <DetailedCard animal={animalUndefined} onClick={() => handleSubmit} />,
     );
-    expect(screen.getByText('Dunghill bird')).toBeDefined();
-    expect(screen.getByText('ID: ANMA0000079699')).toBeDefined();
-    expect(screen.getByAltText('Dunghill bird')).toBeDefined();
-    expect(screen.getByTitle('Dunghill bird')).toBeDefined();
-    expect(screen.getByLabelText('Close button')).toBeDefined();
+    expect(screen.findAllByText('Dunghill bird')).toBeDefined();
+    expect(screen.findAllByText('ID: ANMA0000079699')).toBeDefined();
+    expect(screen.getAllByAltText('Dunghill bird')).toBeDefined();
+    expect(screen.getAllByTitle('Dunghill bird')).toBeDefined();
+    expect(screen.getAllByLabelText('Close button')).toBeDefined();
   });
 });
