@@ -1,0 +1,116 @@
+@import './../../styles/colors.scss';
+
+.form_form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  border: 1px solid $gray;
+  padding: 30px;
+
+  & label {
+    color: $dark-gray;
+  }
+
+  & input::placeholder {
+    color: $grayish;
+  }
+}
+
+.form_inputWrapper {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  gap: 5px;
+}
+
+.form_inputRadioWrapper {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  gap: 5px;
+}
+
+.form_radioBtnField {
+  display: flex;
+  justify-content: space-evenly;
+  border: 1px solid $gray;
+  max-width: 300px;
+  padding: 6px;
+  box-sizing: border-box;
+
+  & > div {
+    display: flex;
+    gap: 5px;
+  }
+
+  & input {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+.form_inputField {
+  padding: 6px;
+  font-size: 16px;
+  max-width: 300px;
+  border: 1px solid $gray;
+  outline: transparent;
+  box-sizing: border-box;
+  transition: border 0.3s;
+
+  &:focus {
+    border: 1px solid $dark-blue;
+  }
+}
+
+.form_buttonsWrapper {
+  display: flex;
+  justify-content: center;
+  padding: 20px 0 10px;
+}
+
+.form_fileBtnField {
+  display: flex;
+  justify-content: center;
+  border: 1px solid $gray;
+  max-width: 292px;
+  padding: 10px;
+  box-sizing: border-box;
+
+  & input::-webkit-file-upload-button {
+    background-color: $light-gray;
+    border: 1px solid $gray;
+    border-radius: 4px;
+    padding: 6px 10px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+
+    &:hover {
+      background-color: $medium-gray;
+    }
+
+    &:active {
+      background-color: $medium-white;
+    }
+  }
+}
+
+.form_checkboxBtnField {
+  display: flex;
+  gap: 5px;
+  justify-content: center;
+  border: 1px solid $gray;
+  max-width: 300px;
+  padding: 6px;
+  box-sizing: border-box;
+
+  & > div {
+    display: flex;
+    gap: 5px;
+  }
+  & input {
+    width: 18px;
+    height: 18px;
+  }
+}

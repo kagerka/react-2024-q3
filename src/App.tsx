@@ -1,31 +1,24 @@
-import { SubmitHandler, useForm } from "react-hook-form";
-
-enum GenderEnum {
-  female = "female",
-  male = "male",
-  other = "other",
-}
-
-interface IFormInput {
-  firstName: string;
-  gender: GenderEnum;
-}
+import { Link } from 'react-router-dom';
+import style from './App.module.scss';
 
 export default function App() {
-  const { register, handleSubmit } = useForm<IFormInput>();
-  const onSubmit: SubmitHandler<IFormInput> = (data) => console.log(data);
-
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <label>First Name</label>
-      <input {...register("firstName")} />
-      <label>Gender Selection</label>
-      <select {...register("gender")}>
-        <option value="female">female</option>
-        <option value="male">male</option>
-        <option value="other">other</option>
-      </select>
-      <input type="submit" />
-    </form>
+    <div className={style.app_wrapper}>
+      <h1>Main page</h1>
+      <nav>
+        <ul className={style.app_nav}>
+          <li>
+            <Link to="/form-one" className={style.app_link}>
+              First form
+            </Link>
+          </li>
+          <li>
+            <Link to="/form-two" className={style.app_link}>
+              Second form
+            </Link>
+          </li>
+        </ul>
+      </nav>
+    </div>
   );
 }
