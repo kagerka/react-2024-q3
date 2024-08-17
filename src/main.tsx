@@ -8,11 +8,13 @@ import { store } from './store/store.ts';
 import Cards from './views/Cards/Cards.tsx';
 import FormOne from './views/Forms/FormOne/FormOne.tsx';
 import FormTwo from './views/Forms/FormTwo/FormTwo.tsx';
+import NotFound from './views/NotFound/NotFound.tsx';
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <App />,
+    errorElement: <NotFound />,
     children: [
       {
         path: '/',
