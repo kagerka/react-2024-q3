@@ -9,7 +9,7 @@ import { addFormData } from '../../../store/formSlice';
 import { AppDispatch, RootState } from '../../../store/store';
 import convertToBase64 from '../../../utils/base64';
 import { CardType } from '../../../utils/types';
-import { schema } from '../../../utils/validation';
+import { passwordValidation, schema } from '../../../utils/validation';
 import style from './../Forms.module.scss';
 
 type ErrorsType = {
@@ -36,8 +36,13 @@ export default function FormOne() {
   const [errors, setErrors] = useState<ErrorsType[]>([]);
   const newErrors: ErrorsType[] = [];
 
+  const [, setPasswordErrors] = useState<ErrorsType[]>([]);
+  const passwordErrorsArr: ErrorsType[] = [];
+
   const [createPswrdType, setCreatePswrdType] = useState('password');
   const [confirmPswrdType, setConfirmPswrdType] = useState('password');
+
+  const [strengthValue, setStrengthValue] = useState(0);
 
   const displayCreatePassword = (type: string) => {
     if (type === 'password') {
@@ -91,6 +96,33 @@ export default function FormOne() {
   const getErrorMsg = (id: string) => {
     return errors.map((err) => (err.path === id ? err.message : ''));
   };
+
+  const handleChange = async () => {
+    const formData = {
+      password: createPasswordInput.current?.value ?? '',
+    };
+
+    await passwordValidation
+      .validate(formData, { strict: true, abortEarly: false })
+      .then(() => {
+        passwordErrorsArr.length = 0;
+        if (passwordErrorsArr.length === 0) setStrengthValue(5);
+        setPasswordErrors(passwordErrorsArr);
+      })
+      .catch((error: ValidationError) => {
+        error.inner.forEach((err) =>
+          passwordErrorsArr.push({ path: err.path as string, message: err.message }),
+        );
+        setPasswordErrors(passwordErrorsArr);
+
+        if (passwordErrorsArr.length === 1) setStrengthValue(4);
+        if (passwordErrorsArr.length === 2) setStrengthValue(3);
+        if (passwordErrorsArr.length === 3) setStrengthValue(2);
+        if (passwordErrorsArr.length === 4) setStrengthValue(1);
+        if (passwordErrorsArr.length === 5) setStrengthValue(0);
+      });
+  };
+
   return (
     <>
       <h1>Form Two</h1>
@@ -144,6 +176,7 @@ export default function FormOne() {
               ref={createPasswordInput}
               placeholder="m#P52s@ap$V"
               className={style.form_inputField}
+              onChange={handleChange}
             />
             <button
               onClick={() => displayCreatePassword(createPswrdType)}
@@ -153,7 +186,7 @@ export default function FormOne() {
               {createPswrdType === 'password' ? 'SHOW' : 'HIDE'}
             </button>
           </div>
-          <PasswordStrength />
+          <PasswordStrength value={strengthValue} />
           <ErrorMessage errorMsg={getErrorMsg('password')} />
         </div>
         <div className={style.form_inputWrapper}>

@@ -20,7 +20,6 @@ export const schema = object().shape({
 
   password: string()
     .required('Password is required. ')
-    .min(8, 'Password length is 8 characters or more. ')
     .matches(/(?=.*\d).*/, 'Password should contain at least 1 number. ')
     .matches(/(?=.*[A-Z]).*/, 'Password should contain at least 1 uppercased letter. ')
     .matches(/(?=.*[a-z]).*/, 'Password should contain at least 1 lowercased letter. ')
@@ -44,4 +43,13 @@ export const schema = object().shape({
     .test('contain', 'Country name is not valid. Choose it from the list. ', (value) =>
       COUNTRIES.some((country) => value === country),
     ),
+});
+
+export const passwordValidation = object().shape({
+  password: string()
+    .matches(/(?=.*\d).*/, 'Password should contain at least 1 number. ')
+    .matches(/(?=.*[A-Z]).*/, 'Password should contain at least 1 uppercased letter. ')
+    .matches(/(?=.*[a-z]).*/, 'Password should contain at least 1 lowercased letter. ')
+    .matches(/(?=.*\W+).*/, 'Password should contain at least 1 special character. ')
+    .min(8, 'Strong password should consist of at least 8 characters. '),
 });
