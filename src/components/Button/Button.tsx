@@ -2,7 +2,7 @@ import style from './Button.module.scss';
 
 type ButtonType = {
   name: string;
-  type: 'submit' | 'reset';
+  type: 'submit' | 'reset' | 'button';
   onClick?: (e: MouseEvent) => void;
 };
 export default function Button({ name, type }: ButtonType) {

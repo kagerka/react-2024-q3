@@ -1,0 +1,41 @@
+@import './../../styles/colors.scss';
+
+.header_wrapper {
+  padding: 10px 40px;
+  width: 100%;
+  background-color: $dark-blue;
+  color: $white;
+  box-sizing: border-box;
+}
+
+.header_nav {
+  font-size: 20px;
+  padding-left: 0;
+  margin: 0;
+  display: flex;
+  gap: 40px;
+  justify-content: center;
+  flex-wrap: wrap;
+
+  & li {
+    list-style-type: none;
+    color: aliceblue;
+  }
+}
+
+.header_link {
+  color: $white;
+  transition: color 0.3s;
+  font-weight: 100;
+  border-bottom: 1px solid transparent;
+  transition: all 0.3s;
+
+  &:hover {
+    color: $white;
+    border-bottom: 1px solid $white;
+  }
+}
+.header_active {
+  color: $orange;
+  border-bottom: 1px solid transparent;
+}

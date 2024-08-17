@@ -1,0 +1,48 @@
+@import './../../styles/colors.scss';
+
+.card_wrapper {
+  width: 250px;
+  border: 1px solid $gray;
+  padding: 20px;
+  box-shadow: 4px 4px 4px $gray;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  &:first-of-type {
+    background: $light-blue;
+    border: 1px solid $dark-blue;
+    box-shadow: 4px 4px 4px $gray;
+
+    & img {
+      border: 1px solid $dark-blue;
+    }
+
+    & > div {
+      border-bottom: 1px solid $medium-gray;
+    }
+  }
+
+  & img {
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid $gray;
+  }
+
+  & > div {
+    border-bottom: 1px solid $light-gray;
+    width: 100%;
+    text-align: start;
+    padding: 6px;
+    box-sizing: border-box;
+
+    &:first-of-type,
+    &:last-of-type {
+      border: none;
+    }
+  }
+  & span {
+    color: $gray;
+    padding-right: 5px;
+  }
+}
