@@ -3,17 +3,17 @@ import COUNTRIES from './countries';
 
 export const schema = object().shape({
   name: string()
-    .required('Name field can not be empty. ')
+    .required('Name is required. ')
     .matches(
       /^[A-Z][a-z]{1,30}$/,
       'First letter should be uppercase, others are lowercase. Only latin letters are allowed. ',
     ),
 
   age: number()
-    .required('Age field can not be empty. ')
+    .required('Age is required. ')
     .positive('Age should be a positive number. ')
     .integer('Age should be a number. ')
-    .typeError('Age field can not be empty. '),
+    .typeError('Age is required. '),
 
   email: string()
     .required('Email is required. ')
@@ -21,10 +21,10 @@ export const schema = object().shape({
 
   password: string()
     .required('Password is required. ')
-    .matches(/(?=.*\d).*/, 'Password should contain at least 1 number. ')
-    .matches(/(?=.*[A-Z]).*/, 'Password should contain at least 1 uppercased letter. ')
-    .matches(/(?=.*[a-z]).*/, 'Password should contain at least 1 lowercased letter. ')
-    .matches(/(?=.*\W+).*/, 'Password should contain at least 1 special character. '),
+    .matches(/(?=.*\d).*/, 'Add a number. ')
+    .matches(/(?=.*[A-Z]).*/, 'Add an uppercased letter. ')
+    .matches(/(?=.*[a-z]).*/, 'Add a lowercased letter. ')
+    .matches(/(?=.*\W+).*/, 'Add a special character. '),
 
   confirmPassword: string()
     .required('Confirm password is required. ')
@@ -40,7 +40,7 @@ export const schema = object().shape({
     .test('fileSize', 'File size must be less than 1MB. ', (value) => value[0]?.size <= 1048576),
 
   country: string()
-    .required('Country field can not be empty. ')
+    .required('Country is required. ')
     .test('contain', 'Country name is not valid. Choose it from the list. ', (value) =>
       COUNTRIES.some((country) => value === country),
     ),
