@@ -17,7 +17,7 @@ export const schema = object().shape({
 
   email: string()
     .required('Email is required. ')
-    .matches(/^[^\s@]+@[^\s@]+\.[^\s@]+$/, 'Email should be valid. '),
+    .matches(/^[^\s@]+@[^\s@]+\.[^\s@]+$/, 'Email should be valid, e.g. example@example.com. '),
 
   password: string()
     .required('Password is required. ')
