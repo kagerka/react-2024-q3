@@ -25,7 +25,7 @@ export default function FormOne() {
     watch,
     reset,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isDirty, isValid },
   } = useForm({ mode: 'onChange', resolver: yupResolver(schema) });
   const dataForm = watch();
 
@@ -237,7 +237,7 @@ export default function FormOne() {
         </div>
 
         <div className={style.form_buttonsWrapper}>
-          <Button name="Submit" type="submit" />
+          <Button name="Submit" type="submit" disabled={!isDirty || !isValid} />
         </div>
       </form>
     </>

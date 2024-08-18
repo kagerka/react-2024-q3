@@ -27,4 +27,10 @@
     outline-width: 0px !important;
     outline-color: none !important;
   }
+
+  &:disabled {
+    pointer-events: none;
+    color: $gray;
+    border-color: $gray;
+  }
 }
