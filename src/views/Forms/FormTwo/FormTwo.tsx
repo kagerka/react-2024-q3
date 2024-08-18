@@ -1,4 +1,6 @@
-import { FormEvent, useRef, useState } from 'react';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { ValidationError } from 'yup';
@@ -16,103 +18,81 @@ type ErrorsType = {
   path: string;
   message: string;
 };
+
 export default function FormOne() {
-  const nameInput = useRef<HTMLInputElement>(null);
-  const ageInput = useRef<HTMLInputElement>(null);
-  const emailInput = useRef<HTMLInputElement>(null);
-  const createPasswordInput = useRef<HTMLInputElement>(null);
-  const confirmPasswordInput = useRef<HTMLInputElement>(null);
-  const genderMaleInput = useRef<HTMLInputElement>(null);
-  const genderFemaleInput = useRef<HTMLInputElement>(null);
-  const acceptTermsInput = useRef<HTMLInputElement>(null);
-  const fileInput = useRef<HTMLInputElement>(null);
-  const countryInput = useRef<HTMLInputElement>(null);
+  const {
+    register,
+    watch,
+    reset,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({ mode: 'onChange', resolver: yupResolver(schema) });
+  const dataForm = watch();
 
   const countries = useSelector((store: RootState) => store.form.countries);
-
   const dispatch: AppDispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [errors, setErrors] = useState<ErrorsType[]>([]);
-  const newErrors: ErrorsType[] = [];
-
   const [, setPasswordErrors] = useState<ErrorsType[]>([]);
   const passwordErrorsArr: ErrorsType[] = [];
-
-  const [createPswrdType, setCreatePswrdType] = useState('password');
-  const [confirmPswrdType, setConfirmPswrdType] = useState('password');
-
   const [strengthValue, setStrengthValue] = useState(0);
+
+  const [createPasswordType, setCreatePasswordType] = useState('password');
+  const [confirmPasswordType, setConfirmPasswordType] = useState('password');
 
   const displayCreatePassword = (type: string) => {
     if (type === 'password') {
-      setCreatePswrdType('text');
+      setCreatePasswordType('text');
     } else {
-      setCreatePswrdType('password');
+      setCreatePasswordType('password');
     }
   };
 
   const displayConfirmPassword = (type: string) => {
     if (type === 'password') {
-      setConfirmPswrdType('text');
+      setConfirmPasswordType('text');
     } else {
-      setConfirmPswrdType('password');
+      setConfirmPasswordType('password');
     }
   };
 
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
+  const handleSubmitForm = async (e?: Event) => {
+    e?.preventDefault();
 
-    const formData = {
-      name: nameInput.current?.value ?? '',
-      age: Number(ageInput.current?.value ?? 0),
-      email: emailInput.current?.value ?? '',
-      password: createPasswordInput.current?.value ?? '',
-      confirmPassword: confirmPasswordInput.current?.value ?? '',
-      gender: genderMaleInput.current?.checked
-        ? genderMaleInput.current.value
-        : (genderFemaleInput.current?.value ?? ''),
-      terms: acceptTermsInput.current?.checked ?? false,
-      file: fileInput.current?.files?.[0] ?? '',
-      country: countryInput.current?.value ?? '',
-      time: new Date().getTime() ?? '',
+    const formData: CardType = {
+      name: dataForm.name,
+      age: +dataForm.age,
+      email: dataForm.email,
+      password: dataForm.password,
+      confirmPassword: dataForm.confirmPassword,
+      gender: dataForm.gender!,
+      terms: dataForm.terms!,
+      file: (await convertToBase64(dataForm.file)) as string,
+      country: dataForm.country,
+      time: new Date().getTime(),
     };
 
-    schema
-      .validate(formData, { strict: true, abortEarly: false })
-      .then(async () => {
-        formData.file = (await convertToBase64(fileInput.current?.files?.[0] as File)) as string;
-        dispatch(addFormData(formData as CardType));
-        navigate('/');
-      })
-      .catch((error: ValidationError) => {
-        error.inner.forEach((err) => {
-          newErrors.push({ path: err.path as string, message: err.message });
-        });
-        setErrors(newErrors);
-      });
+    dispatch(addFormData(formData as CardType));
+    navigate('/');
+    reset();
   };
 
-  const getErrorMsg = (id: string) => {
-    return errors.map((err) => (err.path === id ? err.message : ''));
-  };
-
-  const handleChange = async () => {
-    const formData = {
-      password: createPasswordInput.current?.value ?? '',
+  const checkStrength = async (password: string) => {
+    const formDataPassword = {
+      password: password,
     };
 
     await passwordValidation
-      .validate(formData, { strict: true, abortEarly: false })
+      .validate(formDataPassword, { strict: true, abortEarly: false })
       .then(() => {
         passwordErrorsArr.length = 0;
         if (passwordErrorsArr.length === 0) setStrengthValue(5);
         setPasswordErrors(passwordErrorsArr);
       })
       .catch((error: ValidationError) => {
-        error.inner.forEach((err) =>
-          passwordErrorsArr.push({ path: err.path as string, message: err.message }),
-        );
+        error.inner.forEach((err) => {
+          passwordErrorsArr.push({ path: err.path as string, message: err.message });
+        });
         setPasswordErrors(passwordErrorsArr);
 
         if (passwordErrorsArr.length === 1) setStrengthValue(4);
@@ -126,139 +106,124 @@ export default function FormOne() {
   return (
     <>
       <h1>Form Two</h1>
-      <form onSubmit={handleSubmit} className={style.form_form} noValidate autoComplete="off">
+      <form
+        onSubmit={handleSubmit(() => handleSubmitForm())}
+        className={style.form_form}
+        noValidate
+        autoComplete="off"
+      >
         <div className={style.form_inputWrapper}>
           <label htmlFor="name">Name</label>
           <input
+            {...register('name')}
             type="text"
-            name="name"
             id="name"
-            ref={nameInput}
             placeholder="Ivan"
             className={style.form_inputField}
           />
-          <ErrorMessage errorMsg={getErrorMsg('name')} />
+          <ErrorMessage errorMsg={errors.name?.message} />
         </div>
 
         <div className={style.form_inputWrapper}>
           <label htmlFor="age">Age</label>
           <input
             type="number"
-            name="age"
+            {...register('age')}
             id="age"
-            ref={ageInput}
             placeholder="29"
             min={1}
             max={150}
             className={style.form_inputField}
           />
-          <ErrorMessage errorMsg={getErrorMsg('age')} />
+          <ErrorMessage errorMsg={errors.age?.message} />
         </div>
         <div className={style.form_inputWrapper}>
           <label htmlFor="email">Email</label>
           <input
             type="email"
-            name="email"
+            {...register('email')}
             id="email"
-            ref={emailInput}
             placeholder="example@example.com"
             className={style.form_inputField}
           />
-          <ErrorMessage errorMsg={getErrorMsg('email')} />
+          <ErrorMessage errorMsg={errors.email?.message} />
         </div>
         <div className={style.form_inputWrapper}>
-          <label htmlFor="create-password">Create password</label>
+          <label htmlFor="createPassword">Create password</label>
           <div className={style.form_inputPswrdBtn}>
             <input
-              type={createPswrdType}
-              name="create-password"
-              id="create-password"
-              ref={createPasswordInput}
+              type={createPasswordType}
+              {...register('password', {
+                onChange: (e) => checkStrength(e.target.value),
+              })}
+              id="createPassword"
               placeholder="m#P52s@ap$V"
               className={style.form_inputField}
-              onChange={handleChange}
             />
             <button
-              onClick={() => displayCreatePassword(createPswrdType)}
+              onClick={() => displayCreatePassword(createPasswordType)}
               type="button"
               className={style.form_displayPasswordBtn}
             >
-              {createPswrdType === 'password' ? 'SHOW' : 'HIDE'}
+              {createPasswordType === 'password' ? 'SHOW' : 'HIDE'}
             </button>
           </div>
           <PasswordStrength value={strengthValue} />
-          <ErrorMessage errorMsg={getErrorMsg('password')} />
+          <ErrorMessage errorMsg={errors.password?.message} />
         </div>
         <div className={style.form_inputWrapper}>
-          <label htmlFor="confirm-password">Confirm password</label>
+          <label htmlFor="confirmPassword">Confirm password</label>
           <div className={style.form_inputPswrdBtn}>
             <input
-              type={confirmPswrdType}
-              name="confirm-password"
-              id="confirm-password"
-              ref={confirmPasswordInput}
+              type={confirmPasswordType}
+              {...register('confirmPassword')}
+              id="confirmPassword"
               placeholder="m#P52s@ap$V"
               className={style.form_inputField}
             />
             <button
-              onClick={() => displayConfirmPassword(confirmPswrdType)}
+              onClick={() => displayConfirmPassword(confirmPasswordType)}
               type="button"
               className={style.form_displayPasswordBtn}
             >
-              {confirmPswrdType === 'password' ? 'SHOW' : 'HIDE'}
+              {confirmPasswordType === 'password' ? 'SHOW' : 'HIDE'}
             </button>
           </div>
-          <ErrorMessage errorMsg={getErrorMsg('confirmPassword')} />
+          <ErrorMessage errorMsg={errors.confirmPassword?.message} />
         </div>
 
         <div className={style.form_inputRadioWrapper}>
           <label htmlFor="gender">Gender</label>
           <div className={style.form_radioBtnField}>
             <div>
-              <input
-                type="radio"
-                name="gender"
-                value="male"
-                defaultChecked
-                id="male"
-                ref={genderMaleInput}
-              />
+              <input type="radio" {...register('gender')} value="male" defaultChecked id="male" />
               Male
             </div>
             <div>
-              <input
-                type="radio"
-                name="gender"
-                value="female"
-                id="female"
-                ref={genderFemaleInput}
-              />
+              <input type="radio" {...register('gender')} value="female" id="female" />
               Female
             </div>
           </div>
-          <ErrorMessage errorMsg={getErrorMsg('gender')} />
         </div>
         <div className={style.form_inputWrapper}>
           <label htmlFor="terms">Terms and Conditions agreement</label>
           <div className={style.form_checkboxBtnField}>
-            <input type="checkbox" name="terms" id="terms" ref={acceptTermsInput} />I agree with T&C
+            <input type="checkbox" {...register('terms')} id="terms" />I agree with T&C
           </div>
-          <ErrorMessage errorMsg={getErrorMsg('terms')} />
         </div>
         <div className={style.form_inputWrapper}>
-          <label htmlFor="image">Upload image</label>
+          <label htmlFor="file">Upload image</label>
           <div className={style.form_fileBtnField}>
-            <input type="file" name="image" id="image" ref={fileInput} />
+            <input type="file" {...register('file')} id="image" />
           </div>
-          <ErrorMessage errorMsg={getErrorMsg('file')} />
+          <ErrorMessage errorMsg={errors.file?.message} />
         </div>
         <div className={style.form_inputWrapper}>
           <label htmlFor="country">Country</label>
           <input
             type="text"
-            name="country"
+            {...register('country')}
             id="country"
-            ref={countryInput}
             placeholder="Russia"
             className={style.form_inputField}
             list="countries"
@@ -268,7 +233,7 @@ export default function FormOne() {
               <option key={country} value={country}></option>
             ))}
           </datalist>
-          <ErrorMessage errorMsg={getErrorMsg('country')} />
+          <ErrorMessage errorMsg={errors.country?.message} />
         </div>
 
         <div className={style.form_buttonsWrapper}>

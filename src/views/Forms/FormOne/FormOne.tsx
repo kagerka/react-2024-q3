@@ -73,7 +73,7 @@ export default function FormOne() {
         ? genderMaleInput.current.value
         : (genderFemaleInput.current?.value ?? ''),
       terms: acceptTermsInput.current?.checked ?? false,
-      file: fileInput.current?.files?.[0] ?? '',
+      file: fileInput.current?.files ?? '',
       country: countryInput.current?.value ?? '',
       time: new Date().getTime() ?? '',
     };
@@ -81,7 +81,7 @@ export default function FormOne() {
     schema
       .validate(formData, { strict: true, abortEarly: false })
       .then(async () => {
-        formData.file = (await convertToBase64(fileInput.current?.files?.[0] as File)) as string;
+        formData.file = (await convertToBase64(fileInput.current?.files as FileList)) as string;
         dispatch(addFormData(formData as CardType));
         navigate('/');
       })
@@ -167,12 +167,12 @@ export default function FormOne() {
           <ErrorMessage errorMsg={getErrorMsg('email')} />
         </div>
         <div className={style.form_inputWrapper}>
-          <label htmlFor="create-password">Create password</label>
+          <label htmlFor="createPassword">Create password</label>
           <div className={style.form_inputPswrdBtn}>
             <input
               type={createPswrdType}
-              name="create-password"
-              id="create-password"
+              name="createPassword"
+              id="createPassword"
               ref={createPasswordInput}
               placeholder="m#P52s@ap$V"
               className={style.form_inputField}
@@ -190,12 +190,12 @@ export default function FormOne() {
           <ErrorMessage errorMsg={getErrorMsg('password')} />
         </div>
         <div className={style.form_inputWrapper}>
-          <label htmlFor="confirm-password">Confirm password</label>
+          <label htmlFor="confirmPassword">Confirm password</label>
           <div className={style.form_inputPswrdBtn}>
             <input
               type={confirmPswrdType}
-              name="confirm-password"
-              id="confirm-password"
+              name="confirmPassword"
+              id="confirmPassword"
               ref={confirmPasswordInput}
               placeholder="m#P52s@ap$V"
               className={style.form_inputField}

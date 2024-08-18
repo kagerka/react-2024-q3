@@ -1,10 +1,10 @@
-const convertToBase64 = (file: File) => {
+const convertToBase64 = (file: FileList) => {
   const reader = new FileReader();
 
   return new Promise((resolve, reject) => {
     reader.onload = () => resolve(reader.result);
     reader.onerror = reject;
-    if (file) reader.readAsDataURL(file);
+    if (file) reader.readAsDataURL(file[0]);
   });
 };
 

@@ -1,4 +1,4 @@
-import { mixed, number, object, ref, string } from 'yup';
+import { boolean, mixed, number, object, ref, string } from 'yup';
 import COUNTRIES from './countries';
 
 export const schema = object().shape({
@@ -11,8 +11,9 @@ export const schema = object().shape({
 
   age: number()
     .required('Age field can not be empty. ')
-    .positive('Age should be a number from 1 to 150. ')
-    .integer('Age should be a number. '),
+    .positive('Age should be a positive number. ')
+    .integer('Age should be a number. ')
+    .typeError('Age field can not be empty. '),
 
   email: string()
     .required('Email is required. ')
@@ -29,20 +30,22 @@ export const schema = object().shape({
     .required('Confirm password is required. ')
     .oneOf([ref('password')], 'Passwords must be equal. '),
 
-  file: mixed<File>()
+  file: mixed<FileList>()
     .required('Image is required. ')
     .test(
       'type',
       'File type must be .png or .jpeg. ',
-      (value) => value.type === 'image/png' || value.type === 'image/jpeg',
+      (value) => value[0]?.type === 'image/png' || value[0]?.type === 'image/jpeg',
     )
-    .test('fileSize', 'File size must be less than 1MB. ', (value) => value.size <= 1048576),
+    .test('fileSize', 'File size must be less than 1MB. ', (value) => value[0]?.size <= 1048576),
 
   country: string()
     .required('Country field can not be empty. ')
     .test('contain', 'Country name is not valid. Choose it from the list. ', (value) =>
       COUNTRIES.some((country) => value === country),
     ),
+  gender: string(),
+  terms: boolean(),
 });
 
 export const passwordValidation = object().shape({

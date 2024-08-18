@@ -14,31 +14,25 @@ const router = createBrowserRouter([
   {
     path: '/',
     element: <App />,
-    errorElement: <NotFound />,
+
     children: [
       {
         path: '/',
         element: <Cards />,
+        errorElement: <NotFound />,
       },
       {
         path: '/form-one',
         element: <FormOne />,
+        errorElement: <NotFound />,
       },
       {
         path: '/form-two',
         element: <FormTwo />,
+        errorElement: <NotFound />,
       },
     ],
   },
-
-  // {
-  //   path: '/form-one',
-  //   element: <FormOne />,
-  // },
-  // {
-  //   path: '/form-two',
-  //   element: <FormTwo />,
-  // },
 ]);
 
 createRoot(document.getElementById('root')!).render(
