@@ -1,32 +1,29 @@
-## Projects:
+# react-2024-q3
+Every project is in special tree.
 
-### Task 1. React project setup. Class components. Error boundary
-- Branch: https://github.com/kagerka/react-2024-q3/tree/class-components
-- Deploy: https://kagerka-react-2024q3-class-components.netlify.app
+# Projects:
+
+## class-components
+- Files: https://github.com/kagerka/react-2024-q3/tree/class-components
+- Deploy: https://kagerka-react-2024q3-class-components.netlify.app/
 - PR: https://github.com/kagerka/react-2024-q3/pull/1
 
----
+## hooks-and-routing
+- Files: https://github.com/kagerka/react-2024-q3/tree/hooks-and-routing
+- Deploy: https://kagerka-react-2024q3-routing-tests.netlify.app/
+- PR: https://github.com/kagerka/react-2024-q3/pull/2
 
-## Setting up the project:
+## app-state-management
+- Files: https://github.com/kagerka/react-2024-q3/tree/app-state-management
+- Deploy: https://kagerka-react-2024q3-redux.netlify.app/
+- PR: https://github.com/kagerka/react-2024-q3/pull/3
 
-Prerequisites to run your project locally:
+## nextjs-ssr-pages-api
+- Files: https://github.com/kagerka/react-2024-q3/tree/nextjs-ssr-pages-api
+- Deploy: https://kagerka-react-2024q3-nextjs-ssr.netlify.app/
+- PR: https://github.com/kagerka/react-2024-q3/pull/4
 
-- Installed [npm](https://www.npmjs.com/)
-- Installed [.git](https://git-scm.com/)
-- Code Editor
-- [Node](https://nodejs.org/en) version is 18.x or higher
-
-If you have all the prerequisites installed to run this project locally, you should download zip file with this repository or run `git clone`.
-
-Then navigate into project folder and run `npm install`
-
-## Scripts:
-
-- `npm run dev` start dev server
-- `npm run build` build for production
-- `npm run preview` locally preview production build
-- `npm run lint` start ESLint check
-- `npm run lint:fix` fix issues that can be fixed ESLint
-- `npm run format` start Prettier check
-- `npm run format:fix` formatting code with Prettier
-- `npm run prepare` prepare Husky after git clone
+## forms
+- Files: https://github.com/kagerka/react-2024-q3/tree/forms
+- Deploy: https://kagerka-react-2024q3-forms.netlify.app/
+- PR: https://github.com/kagerka/react-2024-q3/pull/5
