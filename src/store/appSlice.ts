@@ -34,7 +34,13 @@ const appSlice = createSlice({
   },
 });
 
-export const { loading, pageNumber, totalPages, searchString, currentAnimalData, searchResult } =
-  appSlice.actions;
+export const {
+  loading,
+  pageNumber,
+  totalPages,
+  searchString,
+  currentAnimalData,
+  searchResult,
+} = appSlice.actions;
 
 export default appSlice.reducer;

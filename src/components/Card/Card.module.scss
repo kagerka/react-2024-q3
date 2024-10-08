@@ -1,5 +1,7 @@
 @import '../../styles/colors.scss';
-
+.cardWrapper {
+  position: relative;
+}
 .card {
   width: 250px;
   min-height: 190px;
@@ -26,6 +28,7 @@
 .title {
   font-weight: 500;
   color: light-dark($dark-gray, $light-gray);
+  text-align: center;
 }
 
 .image {

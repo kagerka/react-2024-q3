@@ -1,9 +1,17 @@
-import '@testing-library/jest-dom';
+import '@testing-library/jest-dom/vitest';
 import { render, screen } from '@testing-library/react';
 import { Provider } from 'react-redux';
-import { beforeEach, describe, expect, test } from 'vitest';
+import { beforeEach, describe, expect, test, vi } from 'vitest';
 import ThemeSelector from '../components/ThemeSelector/ThemeSelector';
 import { store } from '../store/store';
+
+vi.mock('next/navigation', () => ({
+  useRouter() {
+    return {
+      prefetch: () => null,
+    };
+  },
+}));
 
 describe('ThemeSelector', () => {
   const formId = 'formId';
@@ -22,6 +30,6 @@ describe('ThemeSelector', () => {
   });
 
   test('renders the Search component', () => {
-    expect(screen.getByDisplayValue('cat')).toBeDefined();
+    expect(screen.getAllByDisplayValue('cat')).toBeDefined();
   });
 });

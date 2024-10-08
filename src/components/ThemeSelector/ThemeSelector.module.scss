@@ -19,7 +19,6 @@
   right: 0;
 
   &:checked ~ .label {
-    background-color: $medium-gray;
     background-color: light-dark($medium-gray, $dark-gray);
 
     &::before {
@@ -41,7 +40,7 @@
   height: 30px;
   border-radius: 30px;
   text-align: center;
-  background-color: $medium-gray;
+  background-color: light-dark($medium-gray, $dark-gray);
   transition: all 0.2s ease-in-out;
 
   &::before,

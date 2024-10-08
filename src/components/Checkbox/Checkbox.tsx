@@ -12,11 +12,15 @@ interface ICheckbox {
 function Checkbox(props: ICheckbox) {
   const dispatch = useDispatch();
   const { animal } = props;
-  const checkedItems = useSelector((store: RootState) => store.checked.checkedItems);
+  const checkedItems = useSelector(
+    (store: RootState) => store.checked.checkedItems,
+  );
   const [isCheckedState, setIsCheckedState] = useState(false);
 
   useEffect(() => {
-    const checkItemResult = checkedItems.filter((item) => item.uid === animal.uid);
+    const checkItemResult = checkedItems.filter(
+      (item) => item.uid === animal.uid,
+    );
     if (checkItemResult.length > 0) setIsCheckedState(true);
     if (checkItemResult.length === 0) setIsCheckedState(false);
   }, [animal, checkedItems]);

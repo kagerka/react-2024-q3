@@ -20,7 +20,9 @@ const checkedSlice = createSlice({
       });
     },
     removeItem(state, action: PayloadAction<IAnimal>) {
-      state.checkedItems = state.checkedItems.filter((item) => item.uid !== action.payload.uid);
+      state.checkedItems = state.checkedItems.filter(
+        (item) => item.uid !== action.payload.uid,
+      );
     },
     clearAll(state, action: PayloadAction<[]>) {
       state.checkedItems = action.payload;

@@ -1,8 +1,16 @@
 import { render, screen } from '@testing-library/react';
 import { Provider } from 'react-redux';
-import { describe, expect, test } from 'vitest';
+import { describe, expect, test, vi } from 'vitest';
 import { store } from '../store/store';
 import Header from '../views/Header/Header';
+
+vi.mock('next/navigation', () => ({
+  useRouter() {
+    return {
+      prefetch: () => null,
+    };
+  },
+}));
 
 describe('Header', () => {
   test('renders the Header component', () => {

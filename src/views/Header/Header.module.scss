@@ -5,6 +5,7 @@
   background-color: light-dark($dark-gray, $black);
   display: flex;
   justify-content: space-between;
+  width: -webkit-fill-available;
 }
 
 @media screen and (max-width: 1000px) {

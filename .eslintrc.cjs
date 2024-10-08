@@ -11,15 +11,25 @@ module.exports = {
     'plugin:react/jsx-runtime',
     'plugin:react-hooks/recommended',
     'plugin:prettier/recommended',
+    'next/core-web-vitals',
+    'next',
   ],
   parserOptions: {
-    project: ['./tsconfig.app.json', './tsconfig.node.json'],
+    project: ['./tsconfig.json'],
   },
-  ignorePatterns: ['dist', '.eslintrc.cjs', '.husky', 'vitest-setup.ts'],
+  ignorePatterns: [
+    'dist',
+    '.eslintrc.cjs',
+    '.husky',
+    'vitest-setup.ts',
+    'next.config.mts',
+    'vitest.config.mts',
+    'tests',
+  ],
   parser: '@typescript-eslint/parser',
   plugins: ['react-refresh', 'react-compiler', '@typescript-eslint'],
   rules: {
-    'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
+    'react-refresh/only-export-components': [0, { allowConstantExport: true }],
     '@typescript-eslint/no-explicit-any': 'error',
     'react-compiler/react-compiler': 'error',
     'react/static-property-placement': ['error', 'static public field'],
@@ -40,5 +50,12 @@ module.exports = {
       },
     ],
     'no-param-reassign': ['error', { props: false }],
+    'react/jsx-props-no-spreading': [
+      'error',
+      {
+        custom: 'ignore',
+      },
+    ],
+    '@next/next/no-document-import-in-page': 'off',
   },
 };
