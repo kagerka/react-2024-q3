@@ -1,50 +1,29 @@
-# React + TypeScript + Vite
+# react-2024-q3
+Every project is in special tree.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# Projects:
 
-Currently, two official plugins are available:
+## class-components
+- Files: https://github.com/kagerka/react-2024-q3/tree/class-components
+- Deploy: https://kagerka-react-2024q3-class-components.netlify.app/
+- PR: https://github.com/kagerka/react-2024-q3/pull/1
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## hooks-and-routing
+- Files: https://github.com/kagerka/react-2024-q3/tree/hooks-and-routing
+- Deploy: https://kagerka-react-2024q3-routing-tests.netlify.app/
+- PR: https://github.com/kagerka/react-2024-q3/pull/2
 
-## Expanding the ESLint configuration
+## app-state-management
+- Files: https://github.com/kagerka/react-2024-q3/tree/app-state-management
+- Deploy: https://kagerka-react-2024q3-redux.netlify.app/
+- PR: https://github.com/kagerka/react-2024-q3/pull/3
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## nextjs-ssr-pages-api
+- Files: https://github.com/kagerka/react-2024-q3/tree/nextjs-ssr-pages-api
+- Deploy: https://kagerka-react-2024q3-nextjs-ssr.netlify.app/
+- PR: https://github.com/kagerka/react-2024-q3/pull/4
 
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ["./tsconfig.node.json", "./tsconfig.app.json"],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-});
-```
-
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
-
-```js
-// eslint.config.js
-import react from "eslint-plugin-react";
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: "18.3" } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs["jsx-runtime"].rules,
-  },
-});
-```
+## forms
+- Files: https://github.com/kagerka/react-2024-q3/tree/forms
+- Deploy: https://kagerka-react-2024q3-forms.netlify.app/
+- PR: https://github.com/kagerka/react-2024-q3/pull/5
