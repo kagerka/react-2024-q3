@@ -1,0 +1,93 @@
+@import '../../styles/colors.scss';
+
+.card {
+  min-width: 250px;
+  min-height: 300px;
+  height: fit-content;
+  border: 1px solid $light-gray;
+  border-color: light-dark($light-gray, $medium-gray);
+  border-radius: 4px;
+  box-shadow: 4px 4px 8px 0 rgba(34, 60, 80, 0.2);
+  background-color: light-dark($medium-white, $black);
+  display: flex;
+  flex-direction: column;
+  justify-content: top;
+  box-sizing: border-box;
+  align-items: center;
+  padding: 50px 30px;
+  position: sticky;
+  z-index: 100;
+  top: 40px;
+  width: 90%;
+  font-size: 24px;
+  font-weight: 300;
+  color: light-dark($dark-gray, $light-gray);
+  transition: all 0.2s ease-in-out;
+}
+
+.title {
+  font-size: 36px;
+  font-weight: 600;
+  color: light-dark($dark-gray, $light-gray);
+  margin: 30px 0 10px;
+}
+
+.image {
+  max-width: 120px;
+  height: 120px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+
+  & img {
+    width: 120px;
+  }
+}
+
+.close {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  width: 32px;
+  height: 32px;
+  opacity: 0.3;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 1;
+  }
+
+  &:before,
+  &:after {
+    position: absolute;
+    left: 15px;
+    content: ' ';
+    height: 33px;
+    width: 2px;
+    background-color: light-dark($gray, $medium-white);
+  }
+
+  &:before {
+    transform: rotate(45deg);
+  }
+
+  &:after {
+    transform: rotate(-45deg);
+  }
+}
+@media screen and (min-width: 700px) and (max-width: 850px) {
+  .image {
+    max-width: 100px;
+    height: 100px;
+
+    & img {
+      width: 100px;
+    }
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .card {
+    width: 100%;
+  }
+}

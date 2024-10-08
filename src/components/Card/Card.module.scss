@@ -1,0 +1,47 @@
+@import '../../styles/colors.scss';
+
+.card {
+  width: 250px;
+  min-height: 190px;
+  height: fit-content;
+  border-radius: 4px;
+  box-shadow: 4px 4px 8px 0 rgba(34, 60, 80, 0.2);
+  background-color: light-dark($dark-white, $black);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  box-sizing: border-box;
+  align-items: center;
+  padding: 10px;
+  cursor: zoom-in;
+  color: light-dark($dark-gray, $medium-gray);
+  transition: all 0.2s ease-in-out;
+  position: relative;
+
+  &:hover {
+    background-color: light-dark($light-white, $dark-black);
+  }
+}
+
+.title {
+  font-weight: 500;
+  color: light-dark($dark-gray, $light-gray);
+}
+
+.image {
+  max-width: 80px;
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+
+  & img {
+    width: 80px;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .card {
+    width: 100%;
+  }
+}
