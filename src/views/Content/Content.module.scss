@@ -1,0 +1,111 @@
+@import '../../styles/colors.scss';
+
+.wrapper {
+  background-color: $white;
+  padding: 20px 80px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  gap: 30px;
+  justify-content: center;
+}
+
+.searchWord {
+  font-family: Roboto, serif;
+  font-size: 24px;
+  font-weight: 300;
+  color: $gray;
+
+  & p {
+    margin: 10px 0 0;
+  }
+}
+
+.cardsPaginationDetailsWrapper {
+  display: flex;
+  gap: 40px;
+  justify-content: center;
+}
+
+.cardsPaginationWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  align-items: center;
+
+  &.detailedActive {
+    max-width: 50%;
+  }
+}
+
+.cardsWrapper {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 30px;
+  justify-content: center;
+}
+
+.detailsWrapper {
+  width: 50%;
+  display: flex;
+  justify-content: center;
+}
+
+.loaderWrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.notFound {
+  font-family: Roboto, serif;
+  font-size: 24px;
+  font-weight: 400;
+  color: $light-red;
+  border: 2px dashed $light-red;
+  padding: 20px;
+}
+
+@media screen and (max-width: 1000px) {
+  .wrapper {
+    padding: 20px 40px;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .cardsPaginationDetailsWrapper {
+    flex-direction: column-reverse;
+    width: 100%;
+    align-items: center;
+  }
+
+  .detailsWrapper {
+    width: 100%;
+    position: sticky;
+    top: 40px;
+  }
+
+  .cardsPaginationWrapper {
+    &.detailedActive {
+      max-width: 90%;
+    }
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .wrapper {
+    background-color: $white;
+    padding: 20px 40px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: center;
+  }
+
+  .cardsPaginationWrapper {
+    &.detailedActive {
+      max-width: 100%;
+    }
+  }
+}
